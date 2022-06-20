@@ -26,76 +26,52 @@ const app = {
     // List songs
     songs: [
         {
-            name: 'Lối nhỏ',
-            singer: 'Đen Vâu',
-            path: './acssets/music/loi-nho.mp3',
-            image: './acssets/img/loi-nho.jpg'
+            name: 'Abcdefu',
+            singer: 'Gayle',
+            path: './acssets/music/abcdefu.mp3',
+            image: './acssets/img/abcdefu.jpg'
         },
         {
-            name: 'Bài này chill phết',
-            singer: 'Đen Vâu',
-            path: './acssets/music/bai-nay-chill-phet.mp3',
-            image: './acssets/img/bai-nay-chill-phet.jpg'
+            name: 'Death Bed',
+            singer: 'Powfu',
+            path: './acssets/music/death-bed.mp3',
+            image: './acssets/img/death-bed.jpg'
         },
         {
-            name: 'Lối nhỏ',
-            singer: 'Đen Vâu',
-            path: './acssets/music/loi-nho.mp3',
-            image: './acssets/img/loi-nho.jpg'
+            name: 'Hero',
+            singer: 'Cash Cash',
+            path: './acssets/music/hero.mp3',
+            image: './acssets/img/hero.jpg'
         },
         {
-            name: 'Bài này chill phết',
-            singer: 'Đen Vâu',
-            path: './acssets/music/bai-nay-chill-phet.mp3',
-            image: './acssets/img/bai-nay-chill-phet.jpg'
+            name: 'Infinity',
+            singer: 'Jaymes Young',
+            path: './acssets/music/infinity.mp3',
+            image: './acssets/img/infinity.jpg'
         },
         {
-            name: 'Lối nhỏ',
-            singer: 'Đen Vâu',
-            path: './acssets/music/loi-nho.mp3',
-            image: './acssets/img/loi-nho.jpg'
+            name: 'La La La',
+            singer: 'Naughty Boy',
+            path: './acssets/music/la-la-la.mp3',
+            image: './acssets/img/la-la-la.jpg'
         },
         {
-            name: 'Bài này chill phết',
-            singer: 'Đen Vâu',
-            path: './acssets/music/bai-nay-chill-phet.mp3',
-            image: './acssets/img/bai-nay-chill-phet.jpg'
+            name: 'Love Is Gone',
+            singer: 'Slander, Dylan Mathew',
+            path: './acssets/music/love-is-gone.mp3',
+            image: './acssets/img/love-is-gone.jpg'
         },
         {
-            name: 'Lối nhỏ',
-            singer: 'Đen Vâu',
-            path: './acssets/music/loi-nho.mp3',
-            image: './acssets/img/loi-nho.jpg'
+            name: 'Past Lives',
+            singer: 'Børns',
+            path: './acssets/music/past-lives.mp3',
+            image: './acssets/img/past-lives.jpg'
         },
         {
-            name: 'Bài này chill phết',
-            singer: 'Đen Vâu',
-            path: './acssets/music/bai-nay-chill-phet.mp3',
-            image: './acssets/img/bai-nay-chill-phet.jpg'
-        },
-        {
-            name: 'Lối nhỏ',
-            singer: 'Đen Vâu',
-            path: './acssets/music/loi-nho.mp3',
-            image: './acssets/img/loi-nho.jpg'
-        },
-        {
-            name: 'Bài này chill phết',
-            singer: 'Đen Vâu',
-            path: './acssets/music/bai-nay-chill-phet.mp3',
-            image: './acssets/img/bai-nay-chill-phet.jpg'
-        },
-        {
-            name: 'Lối nhỏ',
-            singer: 'Đen Vâu',
-            path: './acssets/music/loi-nho.mp3',
-            image: './acssets/img/loi-nho.jpg'
-        },
-        {
-            name: 'Bài này chill phết',
-            singer: 'Đen Vâu',
-            path: './acssets/music/bai-nay-chill-phet.mp3',
-            image: './acssets/img/bai-nay-chill-phet.jpg'
+            name: 'Someone To You',
+            singer: 'Banners',
+            path: './acssets/music/someone-to-you.mp3',
+            image: './acssets/img/someone-to-you.jpg'
         },
     ], // List songs
 
