@@ -21,10 +21,12 @@ const progress = document.querySelector('#progress');
 const nextSongBtn = document.querySelector('.btn-next');
 const previousSongBtn = document.querySelector('.btn-prev');
 const randomSongBtn = document.querySelector('.btn-random');
+const repeatSongBtn = document.querySelector('.btn-repeat');
 
 const app = {
 
     isRandom: false,
+    isRepeat: false,
 
     // List songs
     songs: [
@@ -190,10 +192,27 @@ const app = {
         }
 
         // Random
-        randomSongBtn.onclick = function (e) {
+        randomSongBtn.onclick = function () {
             app.isRandom = !app.isRandom
             randomSongBtn.classList.toggle('active', app.isRandom)
         }
+
+
+        // Repeat song
+        repeatSongBtn.onclick = function () {
+            app.isRepeat = !app.isRepeat
+            repeatSongBtn.classList.toggle('active', app.isRepeat)
+        }
+
+        // Next song khi end song
+        audio.onended = function () {
+            if (app.isRepeat) {
+                audio.play();
+            } else {
+                nextSongBtn.click();
+            }
+        }
+
     }, // Handle event 
 
 
