@@ -3,8 +3,8 @@
 2. Scroll +
 3. Play / Pause / seek +
 4. CD rotate(quay) +
-5. Next / Previous
-6. Next / Repeat when ended
+5. Next / Previous +
+6. Next / Repeat when ended 
 7. Random
 8. Active song
 9. Scroll active song into view
@@ -19,9 +19,12 @@ const playBtn = document.querySelector('.btn-toggle-play');
 const player = document.querySelector('.player');
 const progress = document.querySelector('#progress');
 const nextSongBtn = document.querySelector('.btn-next');
-const previousSongBtn = document.querySelector('.btn-prev')
+const previousSongBtn = document.querySelector('.btn-prev');
+const randomSongBtn = document.querySelector('.btn-random');
 
 const app = {
+
+    isRandom: false,
 
     // List songs
     songs: [
@@ -154,8 +157,10 @@ const app = {
 
         // Run
         audio.ontimeupdate = function () {
-            const progressPercent = Math.floor(audio.currentTime / audio.duration * 100);
-            progress.value = progressPercent;
+            if (audio.duration) {
+                const progressPercent = Math.floor(audio.currentTime / audio.duration * 100);
+                progress.value = progressPercent;
+            }
         }
 
         // Tua 
@@ -166,16 +171,31 @@ const app = {
 
         // Khi next song
         nextSongBtn.onclick = function () {
-            app.nextSong()
-            audio.play()
+            if (app.isRandom) {
+                app.playRandomSong();
+            } else {
+                app.nextSong()
+            }
+            audio.play();
         }
 
         // Khi previous song
         previousSongBtn.onclick = function () {
-            app.previousSong();
+            if (app.isRandom) {
+                app.playRandomSong();
+            } else {
+                app.previousSong();
+            }
             audio.play();
         }
+
+        // Random
+        randomSongBtn.onclick = function (e) {
+            app.isRandom = !app.isRandom
+            randomSongBtn.classList.toggle('active', app.isRandom)
+        }
     }, // Handle event 
+
 
 
     // Load firt current song
@@ -194,12 +214,25 @@ const app = {
     },
 
     previousSong: function () {
-        this.currentInde--;
+        this.currentIndex--;
         if (this.currentIndex < 0) {
             this.currentIndex = this.songs.length;
         }
         this.loadCurrentSong();
     },
+
+    playRandomSong: function () {
+        let newIndex;
+        do {
+            newIndex = Math.floor(Math.random() * this.songs.length)
+        } while (newIndex === this.currentIndex);
+
+        this.currentIndex = newIndex;
+        this.loadCurrentSong();
+    },
+
+
+
 
     // When start then run the function inside
     start: function () {
