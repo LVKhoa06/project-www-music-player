@@ -8,7 +8,7 @@
 7. Random +
 8. Active song +
 9. Scroll active song into view + 
-10. Play song when click
+10. Play song when click +
 */
 
 const heading = document.querySelector('header h2');
@@ -22,6 +22,7 @@ const nextSongBtn = document.querySelector('.btn-next');
 const previousSongBtn = document.querySelector('.btn-prev');
 const randomSongBtn = document.querySelector('.btn-random');
 const repeatSongBtn = document.querySelector('.btn-repeat');
+const playlist = document.querySelector('.playlist');
 
 const app = {
 
@@ -94,7 +95,7 @@ const app = {
     render: function () {
         const htmls = this.songs.map((song, index) => {
             return `
-             <div class="song ${index == this.currentIndex ? 'active' : ''}">
+             <div class="song ${index == this.currentIndex ? 'active' : ''}" data-index="${index}">
               <div class="thumb" style="background-image: url('${song.image}')">
               </div>
              <div class="body">
@@ -107,7 +108,7 @@ const app = {
           </div>
           `;
         })
-        document.querySelector('.playlist').innerHTML = htmls.join('');
+        playlist.innerHTML = htmls.join('');
     }, // Rander playlist song
 
     isPlaying: false,
@@ -217,20 +218,42 @@ const app = {
             }
         }
 
+        // Click vào item playlist
+        playlist.onclick = function (e) {
+            const songItem = e.target.closest('.song:not(.active)');
+            if (songItem || e.target.closest('.option')) {
+                if (songItem) {
+
+                    app.currentIndex = Number(songItem.dataset.index);
+                    app.loadSong();
+                    app.render();
+                    audio.play();
+                }
+            }
+        }
+
     }, // Handle event 
 
-
+    // Scroll to active song
     scrollToActiveSong: function () {
         setTimeout(() => {
-            document.querySelector('.song.active').scrollIntoView({
-                behavior: 'smooth', 
-                block: 'end'
-            });
-        },200)
+            const songActive = document.querySelector('.song.active');
+            if (app.currentIndex == 0 || app.currentIndex == 1 || app.currentIndex == 2) {
+                songActive.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'end'
+                });
+            } else {
+                songActive.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest'
+                });
+            }
+        }, 200)
     },
 
-    // Load firt current song
-    loadCurrentSong: function () {
+    // Load song
+    loadSong: function () {
         heading.textContent = this.currentSong.name;
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
         audio.src = this.currentSong.path;
@@ -241,7 +264,7 @@ const app = {
         if (this.currentIndex >= this.songs.length) {
             this.currentIndex = 0;
         }
-        this.loadCurrentSong();
+        this.loadSong();
     },
 
     previousSong: function () {
@@ -249,7 +272,7 @@ const app = {
         if (this.currentIndex < 0) {
             this.currentIndex = this.songs.length;
         }
-        this.loadCurrentSong();
+        this.loadSong();
     },
 
     playRandomSong: function () {
@@ -259,7 +282,7 @@ const app = {
         } while (newIndex === this.currentIndex);
 
         this.currentIndex = newIndex;
-        this.loadCurrentSong();
+        this.loadSong();
     },
 
 
@@ -271,7 +294,7 @@ const app = {
         this.defineProperties();
         this.render();
         this.handleEvents();
-        this.loadCurrentSong();
+        this.loadSong();
 
     }
 }
