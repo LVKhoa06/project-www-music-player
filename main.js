@@ -4,10 +4,10 @@
 3. Play / Pause / seek +
 4. CD rotate(quay) +
 5. Next / Previous +
-6. Next / Repeat when ended 
-7. Random
-8. Active song
-9. Scroll active song into view
+6. Next / Repeat when ended + 
+7. Random +
+8. Active song +
+9. Scroll active song into view + 
 10. Play song when click
 */
 
@@ -92,9 +92,9 @@ const app = {
 
     // Rander playlist song 
     render: function () {
-        const htmls = this.songs.map(song => {
+        const htmls = this.songs.map((song, index) => {
             return `
-             <div class="song">
+             <div class="song ${index == this.currentIndex ? 'active' : ''}">
               <div class="thumb" style="background-image: url('${song.image}')">
               </div>
              <div class="body">
@@ -179,6 +179,8 @@ const app = {
                 app.nextSong()
             }
             audio.play();
+            app.render();
+            app.scrollToActiveSong();
         }
 
         // Khi previous song
@@ -189,6 +191,8 @@ const app = {
                 app.previousSong();
             }
             audio.play();
+            app.render();
+            app.scrollToActiveSong();
         }
 
         // Random
@@ -216,6 +220,14 @@ const app = {
     }, // Handle event 
 
 
+    scrollToActiveSong: function () {
+        setTimeout(() => {
+            document.querySelector('.song.active').scrollIntoView({
+                behavior: 'smooth', 
+                block: 'end'
+            });
+        },200)
+    },
 
     // Load firt current song
     loadCurrentSong: function () {
