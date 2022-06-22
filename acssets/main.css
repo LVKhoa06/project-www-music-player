@@ -98,8 +98,8 @@ header h2 {
 }
 
 .control .btn-toggle-play {
-  width: 56px;
-  height: 56px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   font-size: 24px;
   color: #fff;
@@ -107,10 +107,6 @@ header h2 {
   align-items: center;
   justify-content: center;
   background-color: var(--primary-color);
-}
-
-#volume{
-  margin: 10px;
 }
 
 .progress {
@@ -141,6 +137,36 @@ header h2 {
   pointer-events: none;
   border-bottom-left-radius: 1px;
   border-top-left-radius: 1px;
+  opacity: .9;
+}
+
+#set-volume {
+  margin: 10px 0;
+  width: 80px;
+  display: none;
+}
+
+.icon-volume {
+  color: #7f7e7e;
+  font-size: 18px;
+  display: none;
+}
+
+volume {
+  padding: 5px;
+}
+
+.icon-volume:hover {
+  color: #979798;
+}
+
+volume:hover #set-volume {
+  display: inline-block;
+}
+
+.show-icon {
+  display: inline-block;
+  margin: 10px 0;
 }
 
 /* PLAYLIST */

@@ -24,8 +24,12 @@ const randomSongBtn = document.querySelector('.btn-random');
 const repeatSongBtn = document.querySelector('.btn-repeat');
 const playlist = document.querySelector('.playlist');
 const option = document.querySelector('.option');
-const volume = document.querySelector('#volume');
+const volume = document.querySelector('#set-volume');
 const subProgress = document.querySelector('#sub-progress');
+const iconVolume = document.querySelector('.icon-volume.show-icon');
+const iconVolumeUp = document.querySelector('.icon-volume-up');
+const iconVolumeDown = document.querySelector('.icon-volume-down');
+const iconVolumeOff = document.querySelector('.icon-volume-off');
 
 const app = {
     isRandom: false,
@@ -141,6 +145,25 @@ const app = {
             volume.onmousemove = function (e) {
                 const seekVolume = 1 / 100 * e.target.value;
                 audio.volume = seekVolume;
+
+                if (audio.volume >= 0.5) {
+                    iconVolumeUp.classList.add('show-icon');
+                    iconVolumeDown.classList.remove('show-icon');
+                    iconVolumeOff.classList.remove('show-icon');
+
+                } else if (audio.volume <= 0.4 && audio.volume > 0) {
+                    iconVolumeDown.classList.add('show-icon');
+                    iconVolumeUp.classList.remove('show-icon');
+                    iconVolumeOff.classList.remove('show-icon');
+
+                } else if (audio.volume === 0) {
+                    iconVolumeOff.classList.add('show-icon');
+                    iconVolumeDown.classList.remove('show-icon');
+                    iconVolumeUp.classList.remove('show-icon');
+                }
+
+
+
             }, // Set Volume
 
             // Rewind forward / backward

@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./acssets/main.css">
-<link rel="icon" type="image/x-icon" href="/acssets/img/favicon.png">
+<link rel="icon" type="image/x-icon" href="./acssets/img/favicon.png">
 <div class="player">
   <!-- Dashboard -->
   <div class="dashboard">
@@ -48,8 +48,13 @@
       <input id="progress" class="progress" type="range" value="0" step=".5" min="0" max="100">
       <span id="sub-progress"></span>
     </div>
-    <input id="volume" type="range" value="100" min="0" max="100">
 
+    <volume>
+      <i class="fa fa-volume-up icon-volume icon-volume-up show-icon"></i>
+      <i class="fa fa-volume-down icon-volume icon-volume-down"></i>
+      <i class="fa fa-volume-mute icon-volume icon-volume-off"></i>
+      <input id="set-volume" type="range" value="100" min="0" max="100">
+    </volume>
     <audio id="audio" src=""></audio>
   </div>
 
@@ -69,4 +74,3 @@
   </div>
 </div>
 <script src="main.js"></script>
-<!-- Design from: https://static.collectui.com/shots/3671744/musicloud-revolutionary-app-for-music-streaming-large -->
