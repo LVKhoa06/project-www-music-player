@@ -25,9 +25,7 @@ const repeatSongBtn = document.querySelector('.btn-repeat');
 const playlist = document.querySelector('.playlist');
 const option = document.querySelector('.option');
 const volume = document.querySelector('#volume');
-const progressBar = document.querySelector('.progress::-webkit-slider-thumb')
-
-
+const subProgress = document.querySelector('#sub-progress');
 
 const app = {
     isRandom: false,
@@ -129,16 +127,21 @@ const app = {
                 if (audio.duration) {
                     const progressPercent = Math.round(audio.currentTime / audio.duration * 100);
                     progress.value = progressPercent;
+                    subProgress.style.setProperty('width', `${progress.value}%`);
+
                 }
             }, // Run progress bar
 
+            // 
+            progress.onmousemove = function () {
+                subProgress.style.setProperty('width', `${progress.value}%`);
+            },//
+
             // Set Volume
-            volume.onchange = function (e) {
+            volume.onmousemove = function (e) {
                 const seekVolume = 1 / 100 * e.target.value;
                 audio.volume = seekVolume;
             }, // Set Volume
-
-            
 
             // Rewind forward / backward
             progress.onchange = function (e) {
