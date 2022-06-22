@@ -1,4 +1,5 @@
-/* 
+// End playlist !load
+/*
 1. Render songs +
 2. Scroll +
 3. Play / Pause / seek +
@@ -10,10 +11,9 @@
 9. Scroll active song into view + 
 10. Play song when click +
 */
-
 const heading = document.querySelector('header h2');
 const cdThumb = document.querySelector('.cd-thumb');
-const audio = document.querySelector('#audio')
+const audio = document.querySelector('#audio');
 const cd = document.querySelector('.cd');
 const playBtn = document.querySelector('.btn-toggle-play');
 const player = document.querySelector('.player');
@@ -23,73 +23,37 @@ const previousSongBtn = document.querySelector('.btn-prev');
 const randomSongBtn = document.querySelector('.btn-random');
 const repeatSongBtn = document.querySelector('.btn-repeat');
 const playlist = document.querySelector('.playlist');
+const option = document.querySelector('.option');
+const volume = document.querySelector('#volume');
+const progressBar = document.querySelector('.progress::-webkit-slider-thumb')
+
+
 
 const app = {
-
     isRandom: false,
     isRepeat: false,
-
-    // List songs
-    songs: [
-        {
-            name: 'Abcdefu',
-            singer: 'Gayle',
-            path: './acssets/music/abcdefu.mp3',
-            image: './acssets/img/abcdefu.jpg'
-        },
-        {
-            name: 'Death Bed',
-            singer: 'Powfu',
-            path: './acssets/music/death-bed.mp3',
-            image: './acssets/img/death-bed.jpg'
-        },
-        {
-            name: 'Hero',
-            singer: 'Cash Cash',
-            path: './acssets/music/hero.mp3',
-            image: './acssets/img/hero.jpg'
-        },
-        {
-            name: 'Infinity',
-            singer: 'Jaymes Young',
-            path: './acssets/music/infinity.mp3',
-            image: './acssets/img/infinity.jpg'
-        },
-        {
-            name: 'La La La',
-            singer: 'Naughty Boy',
-            path: './acssets/music/la-la-la.mp3',
-            image: './acssets/img/la-la-la.jpg'
-        },
-        {
-            name: 'Love Is Gone',
-            singer: 'Slander, Dylan Mathew',
-            path: './acssets/music/love-is-gone.mp3',
-            image: './acssets/img/love-is-gone.jpg'
-        },
-        {
-            name: 'Past Lives',
-            singer: 'Børns',
-            path: './acssets/music/past-lives.mp3',
-            image: './acssets/img/past-lives.jpg'
-        },
-        {
-            name: 'Someone To You',
-            singer: 'Banners',
-            path: './acssets/music/someone-to-you.mp3',
-            image: './acssets/img/someone-to-you.jpg'
-        },
-    ], // List songs
-
+    isPlaying: false,
     currentIndex: 0,
-    //
+
+    songs: [],
+
+    async fetchSongs() {
+        await fetch("data-song.json")
+            .then(response =>
+                response.json()
+            )
+            .then(data => {
+                this.songs = data;
+            })
+    }, // fetchSongs
+
     defineProperties: function () {
         Object.defineProperty(this, 'currentSong', {
             get: function () {
                 return this.songs[this.currentIndex];
             }
-        })
-    },
+        });
+    }, //
 
     // Rander playlist song 
     render: function () {
@@ -107,34 +71,34 @@ const app = {
             </div>
           </div>
           `;
-        })
+        });
         playlist.innerHTML = htmls.join('');
     }, // Rander playlist song
 
-    isPlaying: false,
+
     // Handle event 
     handleEvents: function () {
-
-        // CD quay / dừng
+        // CD rotate / stop 
         const cdThumbAnimate = cdThumb.animate([
             { transform: 'rotate(360deg)' }
         ], {
-            duration: 20000,
+            duration: 30000,
             iterations: Infinity
-        })
-        cdThumbAnimate.pause()
-        // Scroll 
-        const cdWidth = cd.offsetWidth;
+        });
+        // CD rotate / stop 
+        cdThumbAnimate.pause();
 
+        // Scroll hide / show CD 
+        const cdWidth = cd.offsetWidth;
         document.onscroll = function () {
             const scroll = window.scrollY;
             const newCdWidth = cdWidth - scroll;
 
             cd.style.width = newCdWidth > 0 ? newCdWidth + 'px' : 0;
             cd.style.opacity = newCdWidth / cdWidth;
-        }, // Scroll
+        }, // Scroll hide / show CD 
 
-            // Event click btn play
+            // Event click play / stop btn 
             playBtn.onclick = function () {
                 if (app.isPlaying) {
                     audio.pause();
@@ -142,99 +106,120 @@ const app = {
                 } else {
                     audio.play();
                 }
-            }
+            }, // Event click play / stop btn
 
-        // While playing music
-        audio.onplay = function () {
-            app.isPlaying = true;
-            player.classList.add('playing');
-            cdThumbAnimate.play();
-        }
-        // While pause music
+            // Playing music 
+            audio.onplay = function () {
+                app.isPlaying = true;
+                player.classList.add('playing');
+                cdThumbAnimate.play();
+            }, // Playing music
 
-        audio.onpause = function () {
-            app.isPlaying = false;
-            player.classList.remove('playing');
-            cdThumbAnimate.pause();
-        }
+            // Pause music 
+            audio.onpause = function () {
+                app.isPlaying = false;
+                player.classList.remove('playing');
+                cdThumbAnimate.pause();
+            }, // Pause music
 
-        // Run
-        audio.ontimeupdate = function () {
-            if (audio.duration) {
-                const progressPercent = Math.floor(audio.currentTime / audio.duration * 100);
-                progress.value = progressPercent;
-            }
-        }
+            // Run progress bar 
+            audio.ontimeupdate = function () {
+                // audio.duration: Thời gian của audio
+                // audio.currentTime: Thời gian hiện tại của audio 
+                if (audio.duration) {
+                    const progressPercent = Math.round(audio.currentTime / audio.duration * 100);
+                    progress.value = progressPercent;
+                }
+            }, // Run progress bar
 
-        // Tua 
-        progress.onchange = function (e) {
-            const seekTime = audio.duration / 100 * e.target.value;
-            audio.currentTime = seekTime
-        }
+            // Set Volume
+            volume.onchange = function (e) {
+                const seekVolume = 1 / 100 * e.target.value;
+                audio.volume = seekVolume;
+            }, // Set Volume
 
-        // Khi next song
-        nextSongBtn.onclick = function () {
-            if (app.isRandom) {
-                app.playRandomSong();
-            } else {
-                app.nextSong()
-            }
-            audio.play();
-            app.render();
-            app.scrollToActiveSong();
-        }
+            
 
-        // Khi previous song
-        previousSongBtn.onclick = function () {
-            if (app.isRandom) {
-                app.playRandomSong();
-            } else {
-                app.previousSong();
-            }
-            audio.play();
-            app.render();
-            app.scrollToActiveSong();
-        }
+            // Rewind forward / backward
+            progress.onchange = function (e) {
+                const seekTime = audio.duration / 100 * e.target.value;
+                audio.currentTime = seekTime;
+            }, // Rewind forward / backward
 
-        // Random
-        randomSongBtn.onclick = function () {
-            app.isRandom = !app.isRandom
-            randomSongBtn.classList.toggle('active', app.isRandom)
-        }
+            // When next the song 
+            nextSongBtn.onclick = function () {
+                if (app.isRandom) {
+                    // If targeting btn-random
+                    app.playRandomSong();
+                } else {
+                    app.nextSong();
+                }
 
-
-        // Repeat song
-        repeatSongBtn.onclick = function () {
-            app.isRepeat = !app.isRepeat
-            repeatSongBtn.classList.toggle('active', app.isRepeat)
-        }
-
-        // Next song khi end song
-        audio.onended = function () {
-            if (app.isRepeat) {
                 audio.play();
-            } else {
-                nextSongBtn.click();
-            }
-        }
+                app.render();
+                app.scrollToActiveSong();
+            }, // When next the song
 
-        // Click vào item playlist
-        playlist.onclick = function (e) {
-            const songItem = e.target.closest('.song:not(.active)');
-            if (songItem || e.target.closest('.option')) {
+            // When previous the song 
+            previousSongBtn.onclick = function () {
+                if (app.isRandom) {
+                    // If targeting btn-random
+                    app.playRandomSong();
+                } else {
+                    app.previousSong();
+                }
+                audio.play();
+                app.render();
+                app.scrollToActiveSong();
+            }, // When previous the song
+
+            // Random song
+            randomSongBtn.onclick = function () {
+                app.isRandom = !app.isRandom;
+                randomSongBtn.classList.toggle('active', app.isRandom);
+            }, // Random song
+
+            // Repeat song
+            repeatSongBtn.onclick = function () {
+                app.isRepeat = !app.isRepeat;
+                repeatSongBtn.classList.toggle('active', app.isRepeat);
+            }, // Repeat song
+
+            // Next song at the end 
+            audio.onended = function () {
+                if (app.isRepeat) {
+                    audio.play();
+                } else {
+                    nextSongBtn.click();
+                }
+            }, // Next song at the end
+
+            // Go to the clicked song
+            playlist.onclick = function (e) {
+                const songItem = e.target.closest('.song:not(.active)');
+                const optionItem = e.target.closest('.option');
+
+
                 if (songItem) {
-
                     app.currentIndex = Number(songItem.dataset.index);
                     app.loadSong();
                     app.render();
                     audio.play();
                 }
-            }
-        }
+
+                if (optionItem) {
+                    option.onclick = function (e) {
+                        e.stopPropagation();
+
+                    }
+                }
+
+            } // Go to the clicked song
 
     }, // Handle event 
 
-    // Scroll to active song
+
+    // Scroll to active song 
     scrollToActiveSong: function () {
         setTimeout(() => {
             const songActive = document.querySelector('.song.active');
@@ -249,54 +234,54 @@ const app = {
                     block: 'nearest'
                 });
             }
-        }, 200)
-    },
+        }, 200);
+    }, // Scroll to active song 
 
     // Load song
     loadSong: function () {
         heading.textContent = this.currentSong.name;
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
         audio.src = this.currentSong.path;
-    },
+    }, // Load song
 
+    // Next song
     nextSong: function () {
         this.currentIndex++;
         if (this.currentIndex >= this.songs.length) {
             this.currentIndex = 0;
         }
         this.loadSong();
-    },
+    }, // Next song
 
+    // Previous song
     previousSong: function () {
         this.currentIndex--;
         if (this.currentIndex < 0) {
-            this.currentIndex = this.songs.length;
+            this.currentIndex = this.songs.length - 1;
         }
         this.loadSong();
-    },
+    }, // Previous song
 
+    // Random song
     playRandomSong: function () {
         let newIndex;
         do {
-            newIndex = Math.floor(Math.random() * this.songs.length)
+            newIndex = Math.round(Math.random() * this.songs.length);
         } while (newIndex === this.currentIndex);
 
         this.currentIndex = newIndex;
         this.loadSong();
-    },
-
-
-
+    }, // Random song
 
     // When start then run the function inside
-    start: function () {
-
+    async start() {
+        await this.fetchSongs();
         this.defineProperties();
-        this.render();
         this.handleEvents();
+        this.render();
         this.loadSong();
+    } // start
+} // app
 
-    }
-}
 app.start();
 
