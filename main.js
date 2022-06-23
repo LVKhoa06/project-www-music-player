@@ -142,6 +142,30 @@ const app = {
             },//
 
             // Set Volume
+            iconVolumeUp.onclick = function () {
+                volume.value = 0;
+                audio.volume = 0;
+                iconVolumeOff.classList.add('show-icon');
+                iconVolumeDown.classList.remove('show-icon');
+                iconVolumeUp.classList.remove('show-icon');
+            },
+
+            iconVolumeDown.onclick = function () {
+                volume.value = 0;
+                audio.volume = 0;
+                iconVolumeOff.classList.add('show-icon');
+                iconVolumeDown.classList.remove('show-icon');
+                iconVolumeUp.classList.remove('show-icon');
+            },
+
+            iconVolumeOff.onclick = function () {
+                volume.value = 100;
+                audio.volume = 1;
+                iconVolumeUp.classList.add('show-icon');
+                iconVolumeDown.classList.remove('show-icon');
+                iconVolumeOff.classList.remove('show-icon');
+            },
+
             volume.onmousemove = function (e) {
                 const seekVolume = 1 / 100 * e.target.value;
                 audio.volume = seekVolume;
@@ -161,9 +185,6 @@ const app = {
                     iconVolumeDown.classList.remove('show-icon');
                     iconVolumeUp.classList.remove('show-icon');
                 }
-
-
-
             }, // Set Volume
 
             // Rewind forward / backward
