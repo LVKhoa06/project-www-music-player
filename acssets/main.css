@@ -84,12 +84,18 @@ header h2 {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 18px 0 8px 0;
+  height: 85px;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
 }
 
 .control .btn {
   color: #666;
-  padding: 18px;
+  padding: 10px;
+  margin: 8px;
   font-size: 18px;
   cursor: pointer;
 }
@@ -99,6 +105,7 @@ header h2 {
 }
 
 .control .btn-toggle-play {
+  cursor: pointer;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -108,6 +115,24 @@ header h2 {
   align-items: center;
   justify-content: center;
   background-color: var(--primary-color);
+}
+
+.btn-toggle-play:hover {
+  background-color: rgba(254, 73, 122, .8);
+}
+
+.btn {
+  max-width: 16px;
+}
+
+.control .btn:hover {
+  font-size: 20px;
+  transition: .2s;
+}
+
+speed:hover svg {
+  width: 38px;
+  height: 37px;
 }
 
 .progress {
@@ -162,7 +187,8 @@ volume {
 }
 
 .icon-volume:hover {
-  color: #979798;
+  font-size: 20px;
+  transition: .2s;
 }
 
 volume:hover #set-volume {
@@ -221,7 +247,7 @@ speed-item span {
 }
 
 .song:not(.active):hover {
-  background-color:rgba(254, 73, 122, .1) ; 
+  background-color: rgba(254, 73, 122, .1);
 }
 
 .song.active .option,
@@ -264,8 +290,8 @@ item {
   display: none;
 }
 
-/* 
-.option:active item{
+
+/* .option:hover .list-item-setting{
   display: block;
 } */
 
@@ -277,7 +303,9 @@ item {
   display: block;
 }
 
-#heart {}
+#heart {
+  padding: 0 3px 0px 5px;
+}
 
 .heart {
   font-size: 20px;
