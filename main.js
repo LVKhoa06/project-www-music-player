@@ -46,7 +46,10 @@ const app = {
                 response.json()
             )
             .then(data => {
-                this.songs = data;
+                this.songs = data.map(song => ({
+                    ...song, // spread operator
+                    favorite: false
+                }));
             })
     }, // fetchSongs
 
@@ -78,9 +81,8 @@ const app = {
              <i class="fas fa-ellipsis-h"></i>  
              </div>
              <div id="heart">
-            <span class="heart">♡</span>
-            <span class="get-heart">♥</span>
-            
+             <span class="${song.favorite ? 'heart hide-item' : 'heart'}">♡</span>
+             <span class="${song.favorite ? 'get-heart show-item-heart' : 'get-heart'}">♥</span>
             </div>
           </div>
           `;
@@ -274,9 +276,9 @@ const app = {
                 }
 
                 if (songItemHeart) {
-                    e.stopPropagation()
                     heart.classList.toggle('hide-item');
                     getHeart.classList.toggle('show-item-heart');
+                    app.songs[Number(songCloset.dataset.index)].favorite = getHeart.classList.contains('show-item-heart');
                 }
             } // Go to the clicked song
 
