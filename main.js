@@ -4,7 +4,7 @@
 2. Scroll +
 3. Play / Pause / seek +
 4. CD rotate(quay) +
-5. Next / Previous +
+5. Next / Previous +f
 6. Next / Repeat when ended + 
 7. Random +
 8. Active song +
@@ -32,6 +32,7 @@ const iconVolumeDown = document.querySelector('.icon-volume-down');
 const iconVolumeOff = document.querySelector('.icon-volume-off');
 
 const app = {
+
     isRandom: false,
     isRepeat: false,
     isPlaying: false,
@@ -65,18 +66,27 @@ const app = {
               <div class="thumb" style="background-image: url('${song.image}')">
               </div>
              <div class="body">
-              <h3 class="title">${song.name}</h3>
-              <p class="author">${song.singer}</p>
-            </div>
-            <div class="option">
-              <i class="fas fa-ellipsis-h"></i>
+             <h3 class="title">${song.name}</h3>
+             <p class="author">${song.singer}</p>
+             </div>
+             <div class="option">
+             <item class="list-item-setting">
+             <span class="item-setting">Item Setting</span>
+             <span class="item-setting">Item Setting</span>
+             <span class="item-setting">Item Setting</span>
+             </item>
+             <i class="fas fa-ellipsis-h"></i>  
+             </div>
+             <div id="heart">
+            <span class="heart">♡</span>
+            <span class="get-heart">♥</span>
+            
             </div>
           </div>
           `;
         });
         playlist.innerHTML = htmls.join('');
     }, // Rander playlist song
-
 
     // Handle event 
     handleEvents: function () {
@@ -237,33 +247,41 @@ const app = {
                 if (app.isRepeat) {
                     audio.play();
                 } else {
-                    nextSongBtn.click();
+                    nextSongBtn.click()
                 }
+
             }, // Next song at the end
 
             // Go to the clicked song
             playlist.onclick = function (e) {
-                const songItem = e.target.closest('.song:not(.active)');
+                const songCloset = e.target.closest('.song');
+                const songItemActive = e.target.closest('.song:not(.active)');
+                const songItemHeart = e.target.closest('#heart');
                 const optionItem = e.target.closest('.option');
+                const setting = songCloset.querySelector('.list-item-setting');
+                const heart = songCloset.querySelector('.heart');
+                const getHeart = songCloset.querySelector('.get-heart');
 
-
-                if (songItem) {
-                    app.currentIndex = Number(songItem.dataset.index);
+                if (songItemActive && !optionItem && !songItemHeart) {
+                    app.currentIndex = Number(songItemActive.dataset.index);
                     app.loadSong();
                     app.render();
                     audio.play();
                 }
 
                 if (optionItem) {
-                    option.onclick = function (e) {
-                        e.stopPropagation();
-
-                    }
+                    setting.classList.toggle('show-item');
                 }
 
+                if (songItemHeart) {
+                    e.stopPropagation()
+                    heart.classList.toggle('hide-item');
+                    getHeart.classList.toggle('show-item-heart');
+                }
             } // Go to the clicked song
 
     }, // Handle event 
+
 
 
     // Scroll to active song 

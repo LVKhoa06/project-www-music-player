@@ -44,7 +44,7 @@ html {
   width: 100%;
   max-width: 480px;
   border-bottom: 1px solid #ebebeb;
-  z-index: 1;
+  z-index: 10000;
 }
 
 /* HEADER */
@@ -285,41 +285,69 @@ speed-item span {
   font-size: 18px;
 }
 
-item {
+.list-item-setting {
+  display: flex;
+  top: 22px;
+  flex-direction: column;
   position: absolute;
+  left: -147px;
+  padding: 10px;
+  width: 150px;
+  height: 180px;
+  background-color: #fff;
+  z-index: 10;
+  border-radius: 3px;
+  border: 1px solid #cdcdcd;
   display: none;
 }
 
 
+.option {
+  position: relative;
+}
+
 /* .option:hover .list-item-setting{
-  display: block;
+  display: flex;
 } */
 
 .item-setting {
+  font-size: 14px;
   color: #333;
 }
 
-.show-item {
-  display: block;
-}
-
 #heart {
-  padding: 0 3px 0px 5px;
+  width: 13px;
+  height: 30px;
 }
 
 .heart {
   font-size: 20px;
-
+  color: #666;
 }
 
 .get-heart {
-  font-size: 14px;
-  color: cornflowerblue;
+  font-size: 25px;
+  color: #c5d3ed;
   position: absolute;
-  margin: -22.4px 0 0 -0.5px;
+  margin: -34.1px 0 0 -1px;
   display: none;
 }
 
 #heart:hover .get-heart {
   display: block;
+}
+
+.show-item {
+  display: flex ;
+}
+
+.show-item-heart {
+  display: block ;
+  margin: -4.1px 0 0 0px;
+  color: cornflowerblue;
+
+}
+
+.hide-item {
+  display: none;
 }
