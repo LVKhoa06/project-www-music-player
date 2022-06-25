@@ -205,8 +205,8 @@ speed-item {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  width: 100px;
-  bottom: 75px;
+  width: 94px;
+  bottom: 80px;
   padding-right: 5px;
   background: rgb(174 174 174 / 10%);
   border: 1px solid rgb(162 162 162 / 20%);
@@ -219,6 +219,10 @@ speed:hover speed-item {
 
 speed-item span {
   font-size: 13px;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: flex-end;
 }
 
 /* PLAYLIST */
@@ -350,4 +354,8 @@ speed-item span {
 
 .hide-item {
   display: none;
+}
+
+.activee{
+  color: red !important;
 }

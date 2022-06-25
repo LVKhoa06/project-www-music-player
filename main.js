@@ -11,6 +11,7 @@
 9. Scroll active song into view + 
 10. Play song when click +
 */
+
 const heading = document.querySelector('header h2');
 const cdThumb = document.querySelector('.cd-thumb');
 const audio = document.querySelector('#audio');
@@ -30,6 +31,12 @@ const iconVolume = document.querySelector('.icon-volume.show-icon');
 const iconVolumeUp = document.querySelector('.icon-volume-up');
 const iconVolumeDown = document.querySelector('.icon-volume-down');
 const iconVolumeOff = document.querySelector('.icon-volume-off');
+const speedAudioFast = document.querySelector('.speed-audio-fast');
+const speedAudioDefault = document.querySelector('.speed-audio-default');
+const speedAudioSlow = document.querySelector('.speed-audio-slow');
+const body = document.querySelector('body');
+const settings = document.querySelector('.list-item-setting.show-item');
+
 
 const app = {
 
@@ -97,7 +104,7 @@ const app = {
             { transform: 'rotate(360deg)' }
         ], {
             duration: 30000,
-            iterations: Infinity
+            iterations: Infinity,
         });
         // CD rotate / stop 
         cdThumbAnimate.pause();
@@ -273,15 +280,39 @@ const app = {
 
                 if (optionItem) {
                     setting.classList.toggle('show-item');
+                } else {
+                    setting.classList.remove('show-item');
                 }
 
-                if (songItemHeart) {
-                    heart.classList.toggle('hide-item');
-                    getHeart.classList.toggle('show-item-heart');
-                    app.songs[Number(songCloset.dataset.index)].favorite = getHeart.classList.contains('show-item-heart');
-                }
+                    if (songItemHeart) {
+                        heart.classList.toggle('hide-item');
+                        getHeart.classList.toggle('show-item-heart');
+                        app.songs[Number(songCloset.dataset.index)].favorite = getHeart.classList.contains('show-item-heart');
+                    }
+
             } // Go to the clicked song
 
+        // Speed audio
+        speedAudioDefault.onclick = function () {
+            speedAudioDefault.classList.add('activee')
+            speedAudioFast.classList.remove('activee')
+            speedAudioSlow.classList.remove('activee')
+            audio.playbackRate = 1;
+        },
+            speedAudioFast.onclick = function () {
+                speedAudioFast.classList.add('activee')
+                speedAudioDefault.classList.remove('activee')
+                speedAudioSlow.classList.remove('activee')
+                audio.playbackRate = 2;
+            },
+
+            speedAudioSlow.onclick = function () {
+                speedAudioSlow.classList.add('activee')
+                speedAudioFast.classList.remove('activee')
+                speedAudioDefault.classList.remove('activee')
+                audio.playbackRate = 0.5;
+            }
+        // Speed audio
     }, // Handle event 
 
 
