@@ -34,9 +34,7 @@ const iconVolumeOff = document.querySelector('.icon-volume-off');
 const speedAudioFast = document.querySelector('.speed-audio-fast');
 const speedAudioDefault = document.querySelector('.speed-audio-default');
 const speedAudioSlow = document.querySelector('.speed-audio-slow');
-const body = document.querySelector('body');
-const settings = document.querySelector('.list-item-setting.show-item');
-
+const body = document.querySelector('html');
 
 const app = {
 
@@ -279,26 +277,31 @@ const app = {
                 }
 
                 if (optionItem) {
+                    e.stopPropagation();
+
                     setting.classList.toggle('show-item');
-                } else {
-                    setting.classList.remove('show-item');
+
+                    body.onclick = function (e) {
+                        setting.classList.remove('show-item');
+                    }
                 }
 
-                    if (songItemHeart) {
-                        heart.classList.toggle('hide-item');
-                        getHeart.classList.toggle('show-item-heart');
-                        app.songs[Number(songCloset.dataset.index)].favorite = getHeart.classList.contains('show-item-heart');
-                    }
+                if (songItemHeart) {
+                    heart.classList.toggle('hide-item');
+                    getHeart.classList.toggle('show-item-heart');
+                    app.songs[Number(songCloset.dataset.index)].favorite = getHeart.classList.contains('show-item-heart');
+                }
 
-            } // Go to the clicked song
+            }, // Go to the clicked song
 
-        // Speed audio
-        speedAudioDefault.onclick = function () {
-            speedAudioDefault.classList.add('activee')
-            speedAudioFast.classList.remove('activee')
-            speedAudioSlow.classList.remove('activee')
-            audio.playbackRate = 1;
-        },
+
+            // Speed audio
+            speedAudioDefault.onclick = function () {
+                speedAudioDefault.classList.add('activee')
+                speedAudioFast.classList.remove('activee')
+                speedAudioSlow.classList.remove('activee')
+                audio.playbackRate = 1;
+            },
             speedAudioFast.onclick = function () {
                 speedAudioFast.classList.add('activee')
                 speedAudioDefault.classList.remove('activee')
