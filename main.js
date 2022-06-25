@@ -38,12 +38,18 @@ const speedAudioDefault = document.querySelector('.speed-audio-default');
 const speedAudioSlow = document.querySelector('.speed-audio-slow');
 const one = document.querySelector('#one');
 
+const RepeatModes = {
+    None: 0,
+    RepeatOne: 1,
+    RepeatList: 2
+}
+
 const app = {
 
     isRandom: false,
-    isRepeat: false,
     isPlaying: false,
     isNoRepeat: false,
+    repeatMode: RepeatModes.None,
     currentIndex: 0,
 
     songs: [],
@@ -216,7 +222,6 @@ const app = {
             // When next the song 
             nextSongBtn.onclick = function () {
                 if (app.isRandom) {
-                    // If targeting btn-random
                     app.playRandomSong();
                 } else {
                     app.nextSong();
@@ -248,21 +253,21 @@ const app = {
 
             // No repeat
             repeatSongBtnPlaylist.onclick = function () {
-                app.isNoRepeat;
+                app.repeatMode = RepeatModes.None;
                 repeatSongBtnPlaylist.classList.remove('show-item');
                 noRepeatSongBtn.classList.remove('hide-item');
             }, // No repeat
 
             // Repeat one song
             noRepeatSongBtn.onclick = function () {
-                app.isRepeat = !app.isRepeat
+                app.repeatMode = RepeatModes.RepeatOne;
                 noRepeatSongBtn.classList.add('hide-item');
                 repeatSongBtnOne.classList.add('show-item');
             }, // Repeat one song
 
             // Repeat playlist
             repeatSongBtnOne.onclick = function () {
-                app.isRepeat = !app.isRepeat
+                app.repeatMode = RepeatModes.RepeatList;
                 repeatSongBtnOne.classList.remove('show-item');
                 repeatSongBtnPlaylist.classList.add('show-item');
             }, // Repeat playlist  
@@ -270,18 +275,22 @@ const app = {
 
             // Next song at the end 
             audio.onended = function () {
-                if (app.isRepeat) {
-                    audio.play();
+                switch (app.repeatMode) {
+                    case RepeatModes.RepeatOne:
+                        audio.play();
+                        break;
 
-                } else {
-                    nextSongBtn.click();
-                }
-                if (!app.isNoRepeat) {
-                    if (app.currentIndex == 0) {
-                        audio.pause();
-                    }
-                }
+                    case RepeatModes.RepeatList:
+                        nextSongBtn.click();
+                        break;
 
+                    default: // RepeatModes.None
+                        if (app.currentIndex === app.songs.length - 1)
+                            audio.pause();
+                        else
+                            nextSongBtn.click();
+                        break;
+                }
 
             }, // Next song at the end
 
@@ -320,26 +329,28 @@ const app = {
 
             }, // Go to the clicked song
 
-
             // Speed audio
-            speedAudioDefault.onclick = function () {
+            speedAudioDefault.onclick = function (e) {
                 speedAudioDefault.classList.add('activee');
                 speedAudioFast.classList.remove('activee');
                 speedAudioSlow.classList.remove('activee');
-                audio.playbackRate = 1;
+
+                app.checkSpeed();
             },
-            speedAudioFast.onclick = function () {
+            speedAudioFast.onclick = function (e) {
                 speedAudioFast.classList.add('activee');
                 speedAudioDefault.classList.remove('activee');
                 speedAudioSlow.classList.remove('activee');
-                audio.playbackRate = 2;
+
+                app.checkSpeed();
             },
 
-            speedAudioSlow.onclick = function () {
+            speedAudioSlow.onclick = function (e) {
                 speedAudioSlow.classList.add('activee');
                 speedAudioFast.classList.remove('activee');
                 speedAudioDefault.classList.remove('activee');
-                audio.playbackRate = 0.5;
+
+                app.checkSpeed();
             }
         // Speed audio
     }, // Handle event 
@@ -347,6 +358,19 @@ const app = {
 
 
     // Scroll to active song 
+
+    checkSpeed: function () {
+        if (speedAudioDefault.classList.contains("activee")) {
+            audio.playbackRate = 1;
+        }
+        else if (speedAudioFast.classList.contains("activee")) {
+            audio.playbackRate = 2;
+        }
+        else if (speedAudioSlow.classList.contains("activee")) {
+            audio.playbackRate = 0.5;
+        }
+    }, // Check speed
+
     scrollToActiveSong: function () {
         setTimeout(() => {
             const songActive = document.querySelector('.song.active');
