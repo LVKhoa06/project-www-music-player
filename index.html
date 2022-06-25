@@ -1,8 +1,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Music Player</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
-  integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
-  crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./acssets/main.css">
@@ -53,8 +51,18 @@ c-19 38 -37 88 -41 112 l-6 43 -59 0 c-58 0 -59 -1 -59 -27z" />
         </speed-icon>
       </speed>
 
-      <div class="btn btn-repeat">
-        <i class="fas fa-redo"></i>
+      <div class="btn-repeat">
+        <div class="btn btn-no-repeat">
+          <i class="fas fa-repeat"></i>
+        </div>
+        
+        <div class="btn btn-repeat-one">
+          <i class="fas fa-repeat"></i>
+          <span id="one">1</span>
+        </div>
+        <div class="btn btn-repeat-playlist">
+          <i class="fas fa-repeat"></i>
+        </div>
       </div>
       <div class="btn btn-prev">
         <i class="fas fa-step-backward"></i>

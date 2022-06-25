@@ -130,6 +130,20 @@ header h2 {
   transition: .2s;
 }
 
+#one {
+  position: absolute;
+  font-size: 10px;
+  color: var(--primary-color);
+  bottom: 11.2px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.control .btn:hover #one {
+  font-size: 12px;
+  transition: .2s;
+}
+
 speed:hover svg {
   width: 38px;
   height: 37px;
@@ -342,11 +356,11 @@ speed-item span {
 }
 
 .show-item {
-  display: flex ;
+  display: flex !important;
 }
 
 .show-item-heart {
-  display: block ;
+  display: block;
   margin: -4.1px 0 0 0px;
   color: cornflowerblue;
 
@@ -356,6 +370,24 @@ speed-item span {
   display: none;
 }
 
-.activee{
-  color: red !important;
+.btn-repeat-one {
+  position: relative;
+  display: none;
+}
+
+.btn-repeat-one i {
+  color: var(--primary-color);
+}
+
+.btn-repeat-playlist {
+  
+  display: none;
+}
+
+.btn-repeat-playlist i{
+  color: var(--primary-color);
+}
+
+.activee {
+  color: var(--primary-color) !important;
 }

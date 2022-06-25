@@ -11,7 +11,7 @@
 9. Scroll active song into view + 
 10. Play song when click +
 */
-
+const body = document.querySelector('html')
 const heading = document.querySelector('header h2');
 const cdThumb = document.querySelector('.cd-thumb');
 const audio = document.querySelector('#audio');
@@ -22,7 +22,9 @@ const progress = document.querySelector('#progress');
 const nextSongBtn = document.querySelector('.btn-next');
 const previousSongBtn = document.querySelector('.btn-prev');
 const randomSongBtn = document.querySelector('.btn-random');
-const repeatSongBtn = document.querySelector('.btn-repeat');
+const repeatSongBtnPlaylist = document.querySelector('.btn-repeat-playlist');
+const noRepeatSongBtn = document.querySelector('.btn-no-repeat');
+const repeatSongBtnOne = document.querySelector('.btn-repeat-one');
 const playlist = document.querySelector('.playlist');
 const option = document.querySelector('.option');
 const volume = document.querySelector('#set-volume');
@@ -34,13 +36,14 @@ const iconVolumeOff = document.querySelector('.icon-volume-off');
 const speedAudioFast = document.querySelector('.speed-audio-fast');
 const speedAudioDefault = document.querySelector('.speed-audio-default');
 const speedAudioSlow = document.querySelector('.speed-audio-slow');
-const body = document.querySelector('html');
+const one = document.querySelector('#one');
 
 const app = {
 
     isRandom: false,
     isRepeat: false,
     isPlaying: false,
+    isNoRepeat: false,
     currentIndex: 0,
 
     songs: [],
@@ -243,19 +246,42 @@ const app = {
                 randomSongBtn.classList.toggle('active', app.isRandom);
             }, // Random song
 
-            // Repeat song
-            repeatSongBtn.onclick = function () {
-                app.isRepeat = !app.isRepeat;
-                repeatSongBtn.classList.toggle('active', app.isRepeat);
-            }, // Repeat song
+            // No repeat
+            repeatSongBtnPlaylist.onclick = function () {
+                app.isNoRepeat;
+                repeatSongBtnPlaylist.classList.remove('show-item');
+                noRepeatSongBtn.classList.remove('hide-item');
+            }, // No repeat
+
+            // Repeat one song
+            noRepeatSongBtn.onclick = function () {
+                app.isRepeat = !app.isRepeat
+                noRepeatSongBtn.classList.add('hide-item');
+                repeatSongBtnOne.classList.add('show-item');
+            }, // Repeat one song
+
+            // Repeat playlist
+            repeatSongBtnOne.onclick = function () {
+                app.isRepeat = !app.isRepeat
+                repeatSongBtnOne.classList.remove('show-item');
+                repeatSongBtnPlaylist.classList.add('show-item');
+            }, // Repeat playlist  
+
 
             // Next song at the end 
             audio.onended = function () {
                 if (app.isRepeat) {
                     audio.play();
+
                 } else {
-                    nextSongBtn.click()
+                    nextSongBtn.click();
                 }
+                if (!app.isNoRepeat) {
+                    if (app.currentIndex == 0) {
+                        audio.pause();
+                    }
+                }
+
 
             }, // Next song at the end
 
@@ -297,22 +323,22 @@ const app = {
 
             // Speed audio
             speedAudioDefault.onclick = function () {
-                speedAudioDefault.classList.add('activee')
-                speedAudioFast.classList.remove('activee')
-                speedAudioSlow.classList.remove('activee')
+                speedAudioDefault.classList.add('activee');
+                speedAudioFast.classList.remove('activee');
+                speedAudioSlow.classList.remove('activee');
                 audio.playbackRate = 1;
             },
             speedAudioFast.onclick = function () {
-                speedAudioFast.classList.add('activee')
-                speedAudioDefault.classList.remove('activee')
-                speedAudioSlow.classList.remove('activee')
+                speedAudioFast.classList.add('activee');
+                speedAudioDefault.classList.remove('activee');
+                speedAudioSlow.classList.remove('activee');
                 audio.playbackRate = 2;
             },
 
             speedAudioSlow.onclick = function () {
-                speedAudioSlow.classList.add('activee')
-                speedAudioFast.classList.remove('activee')
-                speedAudioDefault.classList.remove('activee')
+                speedAudioSlow.classList.add('activee');
+                speedAudioFast.classList.remove('activee');
+                speedAudioDefault.classList.remove('activee');
                 audio.playbackRate = 0.5;
             }
         // Speed audio
