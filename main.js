@@ -393,6 +393,7 @@ const app = {
         heading.textContent = this.currentSong.name;
         cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
         audio.src = this.currentSong.path;
+        this.checkSpeed();
     }, // Load song
 
     // Next song
@@ -402,6 +403,7 @@ const app = {
             this.currentIndex = 0;
         }
         this.loadSong();
+
     }, // Next song
 
     // Previous song
@@ -411,6 +413,8 @@ const app = {
             this.currentIndex = this.songs.length - 1;
         }
         this.loadSong();
+
+
     }, // Previous song
 
     // Random song
