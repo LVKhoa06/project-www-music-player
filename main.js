@@ -11,6 +11,8 @@
 9. Scroll active song into view + 
 10. Play song when click +
 */
+
+const getSetting = document.querySelector('.list-item-setting.show-item');
 const body = document.querySelector('html')
 const heading = document.querySelector('header h2');
 const cdThumb = document.querySelector('.cd-thumb');
@@ -314,9 +316,19 @@ const app = {
                 if (optionItem) {
                     e.stopPropagation();
 
+                    // Remove current active option
+                    try {
+                        const currentActiveOption = document.querySelector('.show-item');
+                        const currentSongWithActiveOption = (currentActiveOption.parentElement).parentElement;
+
+                        if (currentSongWithActiveOption.getAttribute('data-index') != songCloset.getAttribute('data-index'))
+                            currentActiveOption.classList.remove('show-item');
+                    } catch (err) { }
+
+                    // Toggle currently clicked option
                     setting.classList.toggle('show-item');
 
-                    body.onclick = function (e) {
+                    body.onclick = function () {
                         setting.classList.remove('show-item');
                     }
                 }
