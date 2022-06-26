@@ -35,7 +35,8 @@ const iconVolume = document.querySelector('.icon-volume.show-icon');
 const iconVolumeUp = document.querySelector('.icon-volume-up');
 const iconVolumeDown = document.querySelector('.icon-volume-down');
 const iconVolumeOff = document.querySelector('.icon-volume-off');
-const speedAudioFast = document.querySelector('.speed-audio-fast');
+const speedAudioFast2 = document.querySelector('.speed-audio-fast-2');
+const speedAudioFast1 = document.querySelector('.speed-audio-fast-1');
 const speedAudioDefault = document.querySelector('.speed-audio-default');
 const speedAudioSlow = document.querySelector('.speed-audio-slow');
 const one = document.querySelector('#one');
@@ -344,23 +345,34 @@ const app = {
             // Speed audio
             speedAudioDefault.onclick = function (e) {
                 speedAudioDefault.classList.add('activee');
-                speedAudioFast.classList.remove('activee');
+                speedAudioFast2.classList.remove('activee');
+                speedAudioSlow.classList.remove('activee');
+                speedAudioFast1.classList.remove('activee');
+
+                app.checkSpeed();
+            },
+            speedAudioFast1.onclick = function (e) {
+                speedAudioFast1.classList.add('activee');
+                speedAudioFast2.classList.remove('activee');
+                speedAudioDefault.classList.remove('activee');
                 speedAudioSlow.classList.remove('activee');
 
                 app.checkSpeed();
             },
-            speedAudioFast.onclick = function (e) {
-                speedAudioFast.classList.add('activee');
+            speedAudioFast2.onclick = function (e) {
+                speedAudioFast2.classList.add('activee');
                 speedAudioDefault.classList.remove('activee');
                 speedAudioSlow.classList.remove('activee');
+                speedAudioFast1.classList.remove('activee');
 
                 app.checkSpeed();
             },
 
             speedAudioSlow.onclick = function (e) {
                 speedAudioSlow.classList.add('activee');
-                speedAudioFast.classList.remove('activee');
+                speedAudioFast2.classList.remove('activee');
                 speedAudioDefault.classList.remove('activee');
+                speedAudioFast1.classList.remove('activee');
 
                 app.checkSpeed();
             }
@@ -375,12 +387,16 @@ const app = {
         if (speedAudioDefault.classList.contains("activee")) {
             audio.playbackRate = 1;
         }
-        else if (speedAudioFast.classList.contains("activee")) {
+        else if (speedAudioFast1.classList.contains("activee")) {
+            audio.playbackRate = 1.5;
+        }
+        else if (speedAudioFast2.classList.contains("activee")) {
             audio.playbackRate = 2;
         }
         else if (speedAudioSlow.classList.contains("activee")) {
             audio.playbackRate = 0.5;
         }
+
     }, // Check speed
 
     scrollToActiveSong: function () {

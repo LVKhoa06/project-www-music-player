@@ -221,10 +221,9 @@ speed-item {
   align-items: flex-end;
   width: 94px;
   bottom: 80px;
-  padding-right: 5px;
-  background: rgb(174 174 174 / 10%);
   border: 1px solid rgb(162 162 162 / 20%);
   display: none;
+  box-shadow: 0 0px 1px rgb(0 0 0 / 20%);
 }
 
 speed:hover speed-item {
@@ -237,6 +236,13 @@ speed-item span {
   width: 100%;
   height: 100%;
   justify-content: flex-end;
+  align-items: center;
+  padding-right: 5px;
+  line-height: 2;
+}
+
+speed-item span:hover {
+  background-color: rgba(254, 73, 122, .1);
 }
 
 /* PLAYLIST */
@@ -261,7 +267,7 @@ speed-item span {
 }
 
 .song:active {
-  opacity: 0.6;
+  opacity: 0.9;
 }
 
 .song:not(.active):hover {
@@ -309,28 +315,27 @@ speed-item span {
   flex-direction: column;
   position: absolute;
   left: -147px;
-  padding: 10px;
   width: 150px;
-  height: 180px;
   background-color: #fff;
   z-index: 10;
   border-radius: 3px;
   border: 1px solid #cdcdcd;
+  box-shadow: 0 0px 2px rgb(0 0 0 / 20%);
   display: none;
 }
-
 
 .option {
   position: relative;
 }
 
-/* .option:hover .list-item-setting{
-  display: flex;
-} */
-
 .item-setting {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-color);
+  padding: 5px 0 5px 12px;
+}
+
+.item-setting:hover {
+  background-color: rgba(254, 73, 122, .1);
 }
 
 #heart {
@@ -363,7 +368,6 @@ speed-item span {
   display: block;
   margin: -4.1px 0 0 0px;
   color: cornflowerblue;
-
 }
 
 .hide-item {
@@ -380,11 +384,10 @@ speed-item span {
 }
 
 .btn-repeat-playlist {
-  
   display: none;
 }
 
-.btn-repeat-playlist i{
+.btn-repeat-playlist i {
   color: var(--primary-color);
 }
 
