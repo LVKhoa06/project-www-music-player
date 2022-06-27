@@ -359,10 +359,6 @@ speed-item span:hover {
   display: none;
 }
 
-.show-item {
-  display: flex !important;
-}
-
 .show-item-heart {
   display: block;
   margin: -4.1px 0 0 0px;
@@ -392,4 +388,12 @@ speed-item span:hover {
 
 .speed-audio.active {
   color: var(--primary-color) !important;
+}
+
+.show-item-repeat {
+  display: flex !important;
+}
+
+.show-item {
+  display: flex !important;
 }

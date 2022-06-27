@@ -253,27 +253,26 @@ const app = {
                 ctr_randomSongBtn.classList.toggle('active', app.isRandom);
             }, // Random song
 
-            // No repeat
-            ctr_repeatSongBtnPlaylist.onclick = function () {
-                app.repeatMode = RepeatModes.None;
-                ctr_repeatSongBtnPlaylist.classList.remove('show-item');
-                ctr_noRepeatSongBtn.classList.remove('hide-item');
-            }, // No repeat
-
             // Repeat one song
             ctr_noRepeatSongBtn.onclick = function () {
                 app.repeatMode = RepeatModes.RepeatOne;
+                ctr_repeatSongBtnOne.classList.add('show-item-repeat');
                 ctr_noRepeatSongBtn.classList.add('hide-item');
-                ctr_repeatSongBtnOne.classList.add('show-item');
             }, // Repeat one song
 
             // Repeat playlist
             ctr_repeatSongBtnOne.onclick = function () {
                 app.repeatMode = RepeatModes.RepeatList;
-                ctr_repeatSongBtnOne.classList.remove('show-item');
-                ctr_repeatSongBtnPlaylist.classList.add('show-item');
+                ctr_repeatSongBtnOne.classList.remove('show-item-repeat');
+                ctr_repeatSongBtnPlaylist.classList.add('show-item-repeat');
             }, // Repeat playlist  
 
+            // No repeat
+            ctr_repeatSongBtnPlaylist.onclick = function () {
+                app.repeatMode = RepeatModes.None;
+                ctr_repeatSongBtnPlaylist.classList.remove('show-item-repeat');
+                ctr_noRepeatSongBtn.classList.remove('hide-item');
+            }, // No repeat
 
             // Next song at the end 
             audio.onended = function () {
