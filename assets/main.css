@@ -144,7 +144,7 @@ header h2 {
   transition: .2s;
 }
 
-speed:hover svg {
+speed-controller:hover svg {
   width: 38px;
   height: 37px;
 }
@@ -226,7 +226,7 @@ speed-item {
   box-shadow: 0 0px 1px rgb(0 0 0 / 20%);
 }
 
-speed:hover speed-item {
+speed-controller:hover speed-item {
   display: flex;
 }
 
@@ -338,9 +338,12 @@ speed-item span:hover {
   background-color: rgba(254, 73, 122, .1);
 }
 
-#heart {
+.favorite-container {
   width: 13px;
   height: 30px;
+}
+.favorite-container:hover .get-heart {
+  display: block;
 }
 
 .heart {
@@ -354,10 +357,6 @@ speed-item span:hover {
   position: absolute;
   margin: -34.1px 0 0 -1px;
   display: none;
-}
-
-#heart:hover .get-heart {
-  display: block;
 }
 
 .show-item {
@@ -391,6 +390,6 @@ speed-item span:hover {
   color: var(--primary-color);
 }
 
-.activee {
+.speed-audio.active {
   color: var(--primary-color) !important;
 }

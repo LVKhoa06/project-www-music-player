@@ -12,34 +12,29 @@
 10. Play song when click +
 */
 
-const getSetting = document.querySelector('.list-item-setting.show-item');
-const body = document.querySelector('html')
-const heading = document.querySelector('header h2');
-const cdThumb = document.querySelector('.cd-thumb');
 const audio = document.querySelector('#audio');
-const cd = document.querySelector('.cd');
-const playBtn = document.querySelector('.btn-toggle-play');
 const player = document.querySelector('.player');
-const progress = document.querySelector('#progress');
-const nextSongBtn = document.querySelector('.btn-next');
-const previousSongBtn = document.querySelector('.btn-prev');
-const randomSongBtn = document.querySelector('.btn-random');
-const repeatSongBtnPlaylist = document.querySelector('.btn-repeat-playlist');
-const noRepeatSongBtn = document.querySelector('.btn-no-repeat');
-const repeatSongBtnOne = document.querySelector('.btn-repeat-one');
 const playlist = document.querySelector('.playlist');
-const option = document.querySelector('.option');
-const volume = document.querySelector('#set-volume');
-const subProgress = document.querySelector('#sub-progress');
-const iconVolume = document.querySelector('.icon-volume.show-icon');
-const iconVolumeUp = document.querySelector('.icon-volume-up');
-const iconVolumeDown = document.querySelector('.icon-volume-down');
-const iconVolumeOff = document.querySelector('.icon-volume-off');
-const speedAudioFast2 = document.querySelector('.speed-audio-fast-2');
-const speedAudioFast1 = document.querySelector('.speed-audio-fast-1');
-const speedAudioDefault = document.querySelector('.speed-audio-default');
-const speedAudioSlow = document.querySelector('.speed-audio-slow');
-const one = document.querySelector('#one');
+const ctr_heading = document.querySelector('header h2');
+const ctr_cdThumb = document.querySelector('.cd-thumb');
+const ctr_cd = document.querySelector('.cd');
+const ctr_playBtn = document.querySelector('.btn-toggle-play');
+const ctr_progress = document.querySelector('#progress');
+const ctr_progressIndicator = document.querySelector('#sub-progress');
+const ctr_nextSongBtn = document.querySelector('.btn-next');
+const ctr_previousSongBtn = document.querySelector('.btn-prev');
+const ctr_randomSongBtn = document.querySelector('.btn-random');
+const ctr_repeatSongBtnPlaylist = document.querySelector('.btn-repeat-playlist');
+const ctr_noRepeatSongBtn = document.querySelector('.btn-no-repeat');
+const ctr_repeatSongBtnOne = document.querySelector('.btn-repeat-one');
+const ctr_volume = document.querySelector('#set-volume');
+const ctr_volumeUp = document.querySelector('.icon-volume-up');
+const ctr_volumeDown = document.querySelector('.icon-volume-down');
+const ctr_volumeOff = document.querySelector('.icon-volume-off');
+const ctr_speedFast2 = document.querySelector('.speed-audio-fast-2'); // speed = 2.0
+const ctr_speedFast1 = document.querySelector('.speed-audio-fast-1'); // speed = 1.5
+const ctr_speedDefault = document.querySelector('.speed-audio-default'); // speed = 1.0
+const ctr_speedSlow = document.querySelector('.speed-audio-slow'); // speed = 0.5
 
 const RepeatModes = {
     None: 0,
@@ -47,14 +42,18 @@ const RepeatModes = {
     RepeatList: 2
 }
 
-const app = {
+// Hide all opening context menus
+document.onclick = function () {
+    try {
+        document.querySelector('.show-item').classList.remove('show-item');
+    } catch (er) { }
+} // document.onclick 
 
+const app = {
     isRandom: false,
     isPlaying: false,
-    isNoRepeat: false,
     repeatMode: RepeatModes.None,
     currentIndex: 0,
-
     songs: [],
 
     async fetchSongs() {
@@ -65,7 +64,7 @@ const app = {
             .then(data => {
                 this.songs = data.map(song => ({
                     ...song, // spread operator
-                    favorite: false
+                    favorite: false // expanded property
                 }));
             })
     }, // fetchSongs
@@ -97,7 +96,7 @@ const app = {
              </item>
              <i class="fas fa-ellipsis-h"></i>  
              </div>
-             <div id="heart">
+             <div class="favorite-container">
              <span class="${song.favorite ? 'heart hide-item' : 'heart'}">♡</span>
              <span class="${song.favorite ? 'get-heart show-item-heart' : 'get-heart'}">♥</span>
             </div>
@@ -110,7 +109,7 @@ const app = {
     // Handle event 
     handleEvents: function () {
         // CD rotate / stop 
-        const cdThumbAnimate = cdThumb.animate([
+        const cdThumbAnimate = ctr_cdThumb.animate([
             { transform: 'rotate(360deg)' }
         ], {
             duration: 30000,
@@ -120,17 +119,17 @@ const app = {
         cdThumbAnimate.pause();
 
         // Scroll hide / show CD 
-        const cdWidth = cd.offsetWidth;
+        const cdWidth = ctr_cd.offsetWidth;
         document.onscroll = function () {
             const scroll = window.scrollY;
             const newCdWidth = cdWidth - scroll;
 
-            cd.style.width = newCdWidth > 0 ? newCdWidth + 'px' : 0;
-            cd.style.opacity = newCdWidth / cdWidth;
+            ctr_cd.style.width = newCdWidth > 0 ? newCdWidth + 'px' : 0;
+            ctr_cd.style.opacity = newCdWidth / cdWidth;
         }, // Scroll hide / show CD 
 
             // Event click play / stop btn 
-            playBtn.onclick = function () {
+            ctr_playBtn.onclick = function () {
                 if (app.isPlaying) {
                     audio.pause();
 
@@ -159,71 +158,71 @@ const app = {
                 // audio.currentTime: Thời gian hiện tại của audio 
                 if (audio.duration) {
                     const progressPercent = Math.round(audio.currentTime / audio.duration * 100);
-                    progress.value = progressPercent;
-                    subProgress.style.setProperty('width', `${progress.value}%`);
+                    ctr_progress.value = progressPercent;
+                    ctr_progressIndicator.style.setProperty('width', `${ctr_progress.value}%`);
 
                 }
             }, // Run progress bar
 
             // 
-            progress.onmousemove = function () {
-                subProgress.style.setProperty('width', `${progress.value}%`);
+            ctr_progress.onmousemove = function () {
+                ctr_progressIndicator.style.setProperty('width', `${ctr_progress.value}%`);
             },//
 
             // Set Volume
-            iconVolumeUp.onclick = function () {
-                volume.value = 0;
+            ctr_volumeUp.onclick = function () {
+                ctr_volume.value = 0;
                 audio.volume = 0;
-                iconVolumeOff.classList.add('show-icon');
-                iconVolumeDown.classList.remove('show-icon');
-                iconVolumeUp.classList.remove('show-icon');
+                ctr_volumeOff.classList.add('show-icon');
+                ctr_volumeDown.classList.remove('show-icon');
+                ctr_volumeUp.classList.remove('show-icon');
             },
 
-            iconVolumeDown.onclick = function () {
-                volume.value = 0;
+            ctr_volumeDown.onclick = function () {
+                ctr_volume.value = 0;
                 audio.volume = 0;
-                iconVolumeOff.classList.add('show-icon');
-                iconVolumeDown.classList.remove('show-icon');
-                iconVolumeUp.classList.remove('show-icon');
+                ctr_volumeOff.classList.add('show-icon');
+                ctr_volumeDown.classList.remove('show-icon');
+                ctr_volumeUp.classList.remove('show-icon');
             },
 
-            iconVolumeOff.onclick = function () {
-                volume.value = 100;
+            ctr_volumeOff.onclick = function () {
+                ctr_volume.value = 100;
                 audio.volume = 1;
-                iconVolumeUp.classList.add('show-icon');
-                iconVolumeDown.classList.remove('show-icon');
-                iconVolumeOff.classList.remove('show-icon');
+                ctr_volumeUp.classList.add('show-icon');
+                ctr_volumeDown.classList.remove('show-icon');
+                ctr_volumeOff.classList.remove('show-icon');
             },
 
-            volume.onmousemove = function (e) {
+            ctr_volume.onmousemove = function (e) {
                 const seekVolume = 1 / 100 * e.target.value;
                 audio.volume = seekVolume;
 
                 if (audio.volume >= 0.5) {
-                    iconVolumeUp.classList.add('show-icon');
-                    iconVolumeDown.classList.remove('show-icon');
-                    iconVolumeOff.classList.remove('show-icon');
+                    ctr_volumeUp.classList.add('show-icon');
+                    ctr_volumeDown.classList.remove('show-icon');
+                    ctr_volumeOff.classList.remove('show-icon');
 
                 } else if (audio.volume <= 0.4 && audio.volume > 0) {
-                    iconVolumeDown.classList.add('show-icon');
-                    iconVolumeUp.classList.remove('show-icon');
-                    iconVolumeOff.classList.remove('show-icon');
+                    ctr_volumeDown.classList.add('show-icon');
+                    ctr_volumeUp.classList.remove('show-icon');
+                    ctr_volumeOff.classList.remove('show-icon');
 
                 } else if (audio.volume === 0) {
-                    iconVolumeOff.classList.add('show-icon');
-                    iconVolumeDown.classList.remove('show-icon');
-                    iconVolumeUp.classList.remove('show-icon');
+                    ctr_volumeOff.classList.add('show-icon');
+                    ctr_volumeDown.classList.remove('show-icon');
+                    ctr_volumeUp.classList.remove('show-icon');
                 }
             }, // Set Volume
 
-            // Rewind forward / backward
-            progress.onchange = function (e) {
+            // Seek forward / backward
+            ctr_progress.onchange = function (e) {
                 const seekTime = audio.duration / 100 * e.target.value;
                 audio.currentTime = seekTime;
-            }, // Rewind forward / backward
+            }, // Seek forward / backward
 
             // When next the song 
-            nextSongBtn.onclick = function () {
+            ctr_nextSongBtn.onclick = function () {
                 if (app.isRandom) {
                     app.playRandomSong();
                 } else {
@@ -236,7 +235,7 @@ const app = {
             }, // When next the song
 
             // When previous the song 
-            previousSongBtn.onclick = function () {
+            ctr_previousSongBtn.onclick = function () {
                 if (app.isRandom) {
                     // If targeting btn-random
                     app.playRandomSong();
@@ -249,30 +248,30 @@ const app = {
             }, // When previous the song
 
             // Random song
-            randomSongBtn.onclick = function () {
+            ctr_randomSongBtn.onclick = function () {
                 app.isRandom = !app.isRandom;
-                randomSongBtn.classList.toggle('active', app.isRandom);
+                ctr_randomSongBtn.classList.toggle('active', app.isRandom);
             }, // Random song
 
             // No repeat
-            repeatSongBtnPlaylist.onclick = function () {
+            ctr_repeatSongBtnPlaylist.onclick = function () {
                 app.repeatMode = RepeatModes.None;
-                repeatSongBtnPlaylist.classList.remove('show-item');
-                noRepeatSongBtn.classList.remove('hide-item');
+                ctr_repeatSongBtnPlaylist.classList.remove('show-item');
+                ctr_noRepeatSongBtn.classList.remove('hide-item');
             }, // No repeat
 
             // Repeat one song
-            noRepeatSongBtn.onclick = function () {
+            ctr_noRepeatSongBtn.onclick = function () {
                 app.repeatMode = RepeatModes.RepeatOne;
-                noRepeatSongBtn.classList.add('hide-item');
-                repeatSongBtnOne.classList.add('show-item');
+                ctr_noRepeatSongBtn.classList.add('hide-item');
+                ctr_repeatSongBtnOne.classList.add('show-item');
             }, // Repeat one song
 
             // Repeat playlist
-            repeatSongBtnOne.onclick = function () {
+            ctr_repeatSongBtnOne.onclick = function () {
                 app.repeatMode = RepeatModes.RepeatList;
-                repeatSongBtnOne.classList.remove('show-item');
-                repeatSongBtnPlaylist.classList.add('show-item');
+                ctr_repeatSongBtnOne.classList.remove('show-item');
+                ctr_repeatSongBtnPlaylist.classList.add('show-item');
             }, // Repeat playlist  
 
 
@@ -284,121 +283,119 @@ const app = {
                         break;
 
                     case RepeatModes.RepeatList:
-                        nextSongBtn.click();
+                        ctr_nextSongBtn.click();
                         break;
 
                     default: // RepeatModes.None
                         if (app.currentIndex === app.songs.length - 1)
                             audio.pause();
                         else
-                            nextSongBtn.click();
+                            ctr_nextSongBtn.click();
                         break;
                 }
 
             }, // Next song at the end
 
             // Go to the clicked song
+
             playlist.onclick = function (e) {
-                const songCloset = e.target.closest('.song');
-                const songItemActive = e.target.closest('.song:not(.active)');
-                const songItemHeart = e.target.closest('#heart');
-                const optionItem = e.target.closest('.option');
-                const setting = songCloset.querySelector('.list-item-setting');
-                const heart = songCloset.querySelector('.heart');
-                const getHeart = songCloset.querySelector('.get-heart');
+                try {
+                    const songCloset = e.target.closest('.song');
+                    const songActive = e.target.closest('.song:not(.active)');
 
-                if (songItemActive && !optionItem && !songItemHeart) {
-                    app.currentIndex = Number(songItemActive.dataset.index);
-                    app.loadSong();
-                    app.render();
-                    audio.play();
-                }
+                    const songItemHeart = e.target.closest('.favorite-container');
+                    const optionItem = e.target.closest('.option');
 
-                if (optionItem) {
-                    e.stopPropagation();
+                    const setting = songCloset.querySelector('.list-item-setting');
+                    const heart = songCloset.querySelector('.heart');
+                    const getHeart = songCloset.querySelector('.get-heart');
 
-                    // Remove current active option
-                    try {
-                        const currentActiveOption = document.querySelector('.show-item');
-                        const currentSongWithActiveOption = (currentActiveOption.parentElement).parentElement;
-
-                        if (currentSongWithActiveOption.getAttribute('data-index') != songCloset.getAttribute('data-index'))
-                            currentActiveOption.classList.remove('show-item');
-                    } catch (err) { }
-
-                    // Toggle currently clicked option
-                    setting.classList.toggle('show-item');
-
-                    body.onclick = function () {
-                        setting.classList.remove('show-item');
+                    if (songActive && !optionItem && !songItemHeart) {
+                        app.currentIndex = Number(songActive.dataset.index);
+                        app.loadSong();
+                        app.render();
+                        audio.play();
                     }
-                }
 
-                if (songItemHeart) {
-                    heart.classList.toggle('hide-item');
-                    getHeart.classList.toggle('show-item-heart');
-                    app.songs[Number(songCloset.dataset.index)].favorite = getHeart.classList.contains('show-item-heart');
-                }
+                    if (optionItem) {
+                        e.stopPropagation();
 
-            }, // Go to the clicked song
+                        // Remove current active option
+                        try {
+                            const currentActiveOption = document.querySelector('.show-item');
+                            const currentSongWithActiveOption = (currentActiveOption.parentElement).parentElement;
+
+                            if (currentSongWithActiveOption.getAttribute('data-index') != songCloset.getAttribute('data-index'))
+                                currentActiveOption.classList.remove('show-item');
+                        } catch (err) { }
+
+                        // Toggle currently clicked option
+                        setting.classList.toggle('show-item');
+                    }
+
+                    if (songItemHeart) {
+                        heart.classList.toggle('hide-item');
+                        getHeart.classList.toggle('show-item-heart');
+                        app.songs[Number(songCloset.dataset.index)].favorite = getHeart.classList.contains('show-item-heart');
+                    }
+                } catch (err) { }
+            }, // playlist.onclick
 
             // Speed audio
-            speedAudioDefault.onclick = function (e) {
-                speedAudioDefault.classList.add('activee');
-                speedAudioFast2.classList.remove('activee');
-                speedAudioSlow.classList.remove('activee');
-                speedAudioFast1.classList.remove('activee');
+            ctr_speedDefault.onclick = function () {
+                ctr_speedDefault.classList.add('active');
+                ctr_speedFast2.classList.remove('active');
+                ctr_speedSlow.classList.remove('active');
+                ctr_speedFast1.classList.remove('active');
 
                 app.checkSpeed();
             },
-            speedAudioFast1.onclick = function (e) {
-                speedAudioFast1.classList.add('activee');
-                speedAudioFast2.classList.remove('activee');
-                speedAudioDefault.classList.remove('activee');
-                speedAudioSlow.classList.remove('activee');
+            ctr_speedFast1.onclick = function () {
+                ctr_speedFast1.classList.add('active');
+                ctr_speedFast2.classList.remove('active');
+                ctr_speedDefault.classList.remove('active');
+                ctr_speedSlow.classList.remove('active');
 
                 app.checkSpeed();
             },
-            speedAudioFast2.onclick = function (e) {
-                speedAudioFast2.classList.add('activee');
-                speedAudioDefault.classList.remove('activee');
-                speedAudioSlow.classList.remove('activee');
-                speedAudioFast1.classList.remove('activee');
+            ctr_speedFast2.onclick = function () {
+                ctr_speedFast2.classList.add('active');
+                ctr_speedDefault.classList.remove('active');
+                ctr_speedSlow.classList.remove('active');
+                ctr_speedFast1.classList.remove('active');
 
                 app.checkSpeed();
             },
 
-            speedAudioSlow.onclick = function (e) {
-                speedAudioSlow.classList.add('activee');
-                speedAudioFast2.classList.remove('activee');
-                speedAudioDefault.classList.remove('activee');
-                speedAudioFast1.classList.remove('activee');
+            ctr_speedSlow.onclick = function (e) {
+                ctr_speedSlow.classList.add('active');
+                ctr_speedFast2.classList.remove('active');
+                ctr_speedDefault.classList.remove('active');
+                ctr_speedFast1.classList.remove('active');
 
                 app.checkSpeed();
             }
         // Speed audio
     }, // Handle event 
 
-
-
-    // Scroll to active song 
-
+    // Check speed
     checkSpeed: function () {
-        if (speedAudioDefault.classList.contains("activee")) {
+        if (ctr_speedDefault.classList.contains("active")) {
             audio.playbackRate = 1;
         }
-        else if (speedAudioFast1.classList.contains("activee")) {
+        else if (ctr_speedFast1.classList.contains("active")) {
             audio.playbackRate = 1.5;
         }
-        else if (speedAudioFast2.classList.contains("activee")) {
+        else if (ctr_speedFast2.classList.contains("active")) {
             audio.playbackRate = 2;
         }
-        else if (speedAudioSlow.classList.contains("activee")) {
+        else if (ctr_speedSlow.classList.contains("active")) {
             audio.playbackRate = 0.5;
         }
 
     }, // Check speed
 
+    // Scroll to active song 
     scrollToActiveSong: function () {
         setTimeout(() => {
             const songActive = document.querySelector('.song.active');
@@ -418,8 +415,8 @@ const app = {
 
     // Load song
     loadSong: function () {
-        heading.textContent = this.currentSong.name;
-        cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
+        ctr_heading.textContent = this.currentSong.name;
+        ctr_cdThumb.style.backgroundImage = `url('${this.currentSong.image}')`;
         audio.src = this.currentSong.path;
         this.checkSpeed();
     }, // Load song
@@ -459,9 +456,10 @@ const app = {
     // When start then run the function inside
     async start() {
         await this.fetchSongs();
+
         this.defineProperties();
-        this.handleEvents();
         this.render();
+        this.handleEvents();
         this.loadSong();
     } // start
 } // app

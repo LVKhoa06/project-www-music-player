@@ -1,123 +1,128 @@
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Music Player</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="./acssets/main.css">
-<link rel="icon" type="image/x-icon" href="./acssets/img/favicon.png">
-<div class="player">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Player</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/main.css">
+  <link rel="icon" type="image/x-icon" href="./assets/img/favicon.png">
+</head>
+
+<body>
+  <audio id="audio" src=""></audio>
+
   <!-- Dashboard -->
-  <div class="dashboard">
-    <!-- Header -->
-    <header>
-      <!-- Song title is playing -->
-      <h4>Now playing</h4>
-      <h2></h2>
-    </header>
+  <div class="player">
+    <div class="dashboard">
+      <!-- Header -->
+      <header>
+        <h4>Now playing</h4>
+        <h2></h2>
+      </header>
 
-    <!-- CD -->
-    <div class="cd">
-      <div class="cd-thumb" style="background-image: url('')">
+      <!-- CD -->
+      <div class="cd">
+        <div class="cd-thumb" style="background-image: url('')">
+        </div>
       </div>
-    </div>
 
-    <!-- Control -->
-    <div class="control">
-      <speed class="btn">
-        <speed-item>
-          <span class="speed-audio speed-audio-fast-2">2</span>
-          <span class="speed-audio speed-audio-fast-1">1.5</span>
-          <span class="speed-audio speed-audio-default activee">1</span>
-          <span class="speed-audio speed-audio-slow">0.5</span>
-        </speed-item>
-        <speed-icon>
-          <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 200 200"
-            preserveAspectRatio="xMidYMid meet">
-            <g transform="translate(0.000000,200.000000) scale(0.100000,-0.100000)" fill="#666" stroke="none">
-              <path d="M916 1575 c-61 -17 -161 -66 -201 -99 l-30 -25 41 -41 40 -41 60 36
+      <!-- Control -->
+      <div class="control">
+        <speed-controller class="btn">
+          <speed-item>
+            <span class="speed-audio speed-audio-fast-2">2</span>
+            <span class="speed-audio speed-audio-fast-1">1.5</span>
+            <span class="speed-audio speed-audio-default active">1</span>
+            <span class="speed-audio speed-audio-slow">0.5</span>
+          </speed-item>
+          <speed-icon>
+            <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 200 200"
+              preserveAspectRatio="xMidYMid meet">
+              <g transform="translate(0.000000,200.000000) scale(0.100000,-0.100000)" fill="#666" stroke="none">
+                <path d="M916 1575 c-61 -17 -161 -66 -201 -99 l-30 -25 41 -41 40 -41 60 36
 c54 33 139 65 171 65 9 0 13 17 13 60 0 69 -3 70 -94 45z" />
-              <path d="M1130 1532 l0 -60 41 -7 c65 -11 175 -72 235 -130 65 -64 120 -172
+                <path d="M1130 1532 l0 -60 41 -7 c65 -11 175 -72 235 -130 65 -64 120 -172
 136 -269 38 -231 -121 -470 -353 -529 l-54 -14 -3 -60 -3 -60 52 9 c234 42
 425 232 473 470 20 95 20 143 1 233 -50 238 -251 434 -485 471 l-40 7 0 -61z" />
-              <path d="M560 1308 c-38 -68 -69 -149 -77 -204 l-6 -44 59 0 59 0 12 51 c7 27
+                <path d="M560 1308 c-38 -68 -69 -149 -77 -204 l-6 -44 59 0 59 0 12 51 c7 27
 26 78 43 111 l31 61 -37 38 c-21 22 -42 39 -46 39 -4 0 -21 -24 -38 -52z" />
-              <path d="M950 994 l0 -266 33 24 c17 14 98 74 179 135 l148 111 -175 131 c-96
+                <path d="M950 994 l0 -266 33 24 c17 14 98 74 179 135 l148 111 -175 131 c-96
 72 -177 131 -180 131 -3 0 -5 -120 -5 -266z" />
-              <path d="M480 913 c0 -62 92 -273 118 -273 4 0 25 17 45 38 l37 38 -35 69
+                <path d="M480 913 c0 -62 92 -273 118 -273 4 0 25 17 45 38 l37 38 -35 69
 c-19 38 -37 88 -41 112 l-6 43 -59 0 c-58 0 -59 -1 -59 -27z" />
-              <path d="M721 586 l-41 -42 42 -31 c76 -54 142 -81 261 -107 l27 -6 0 60 c0
+                <path d="M721 586 l-41 -42 42 -31 c76 -54 142 -81 261 -107 l27 -6 0 60 c0
 40 -4 62 -12 64 -89 24 -133 41 -180 70 l-56 34 -41 -42z" />
-            </g>
-          </svg>
-        </speed-icon>
-      </speed>
+              </g>
+            </svg>
+          </speed-icon>
+        </speed-controller>
 
-      <div class="btn-repeat">
-        <div class="btn btn-no-repeat">
-          <i class="fas fa-repeat"></i>
+        <div class="btn-repeat">
+          <div class="btn btn-no-repeat">
+            <i class="fas fa-repeat"></i>
+          </div>
+
+          <div class="btn btn-repeat-one">
+            <i class="fas fa-repeat"></i>
+            <span id="one">1</span>
+          </div>
+          <div class="btn btn-repeat-playlist">
+            <i class="fas fa-repeat"></i>
+          </div>
         </div>
-        
-        <div class="btn btn-repeat-one">
-          <i class="fas fa-repeat"></i>
-          <span id="one">1</span>
+        <div class="btn btn-prev">
+          <i class="fas fa-step-backward"></i>
         </div>
-        <div class="btn btn-repeat-playlist">
-          <i class="fas fa-repeat"></i>
+        <div class=" btn-toggle-play">
+          <i class="fas fa-pause icon-pause"></i>
+          <i class="fas fa-play icon-play"></i>
         </div>
+        <div class="btn btn-next">
+          <i class="fas fa-step-forward"></i>
+        </div>
+        <div class="btn btn-random">
+          <i class="fas fa-random"></i>
+        </div>
+        <volume class="btn">
+          <input id="set-volume" type="range" value="100" min="0" max="100">
+          <i class="fa fa-volume-up icon-volume icon-volume-up show-icon"></i>
+          <i class="fa fa-volume-down icon-volume icon-volume-down"></i>
+          <i class="fa fa-volume-mute icon-volume icon-volume-off"></i>
+        </volume>
       </div>
-      <div class="btn btn-prev">
-        <i class="fas fa-step-backward"></i>
+
+      <!--  -->
+      <div style="position: relative;">
+        <input id="progress" class="progress" type="range" value="0" step=".5" min="0" max="100">
+        <span id="sub-progress"></span>
       </div>
-      <div class=" btn-toggle-play">
-        <i class="fas fa-pause icon-pause"></i>
-        <i class="fas fa-play icon-play"></i>
-      </div>
-      <div class="btn btn-next">
-        <i class="fas fa-step-forward"></i>
-      </div>
-      <div class="btn btn-random">
-        <i class="fas fa-random"></i>
-      </div>
-      <volume class="btn">
-        <input id="set-volume" type="range" value="100" min="0" max="100">
-        <i class="fa fa-volume-up icon-volume icon-volume-up show-icon"></i>
-        <i class="fa fa-volume-down icon-volume icon-volume-down"></i>
-        <i class="fa fa-volume-mute icon-volume icon-volume-off"></i>
-      </volume>
     </div>
 
-    <!--  -->
-    <div style="position: relative;">
-      <input id="progress" class="progress" type="range" value="0" step=".5" min="0" max="100">
-      <span id="sub-progress"></span>
-    </div>
-
-
-    <audio id="audio" src=""></audio>
-  </div>
-
-  <!-- Playlist -->
-  <div class="playlist">
-    <div class="song">
-      <div class="thumb" style="background-image: url('')">
-      </div>
-      <div class="body">
-        <h3 class="title">Music name</h3>
-        <p class="author">Singer</p>
-      </div>
-      <div id="heart">
-        <span class="heart">♡</span>
-        <i class="fa fa-heart get-heart"></i>
-      </div>
-      <div class="option">
-        <i class="fas fa-ellipsis-h"></i>
-        <item class="list-item-setting ">
-          <span class="item-setting">Setting</span>
-          <span class="item-setting">Setting</span>
-          <span class="item-setting">Setting</span>
-        </item>
-      </div>
+    <!-- Playlist -->
+    <div class="playlist">
+      <!-- <div class="song">
+        <div class="thumb" style="background-image: url('')">
+        </div>
+        <div class="body">
+          <h3 class="title">Music name</h3>
+          <p class="author">Singer</p>
+        </div>
+        <div id="heart">
+          <span class="heart">♡</span>
+          <i class="fa fa-heart get-heart"></i>
+        </div>
+        <div class="option">
+          <i class="fas fa-ellipsis-h"></i>
+          <item class="list-item-setting ">
+            <span class="item-setting">Setting</span>
+            <span class="item-setting">Setting</span>
+            <span class="item-setting">Setting</span>
+          </item>
+        </div>
+      </div> -->
     </div>
   </div>
-</div>
+</body>
+
 <script src="main.js"></script>

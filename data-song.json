@@ -2,49 +2,49 @@
     {
         "name": "Abcdefu",
         "singer": "Gayle",
-        "path": "./acssets/music/abcdefu.mp3",
-        "image": "./acssets/img/abcdefu.jpg"
+        "path": "./assets/music/abcdefu.mp3",
+        "image": "./assets/img/abcdefu.jpg"
     },
     {
         "name": "Death Bed",
         "singer": "Powfu",
-        "path": "./acssets/music/death-bed.mp3",
-        "image": "./acssets/img/death-bed.jpg"
+        "path": "./assets/music/death-bed.mp3",
+        "image": "./assets/img/death-bed.jpg"
     },
     {
         "name": "Hero",
         "singer": "Cash Cash",
-        "path": "./acssets/music/hero.mp3",
-        "image": "./acssets/img/hero.jpg"
+        "path": "./assets/music/hero.mp3",
+        "image": "./assets/img/hero.jpg"
     },
     {
         "name": "Infinity",
         "singer": "Jaymes Young",
-        "path": "./acssets/music/infinity.mp3",
-        "image": "./acssets/img/infinity.jpg"
+        "path": "./assets/music/infinity.mp3",
+        "image": "./assets/img/infinity.jpg"
     },
     {
         "name": "La La La",
         "singer": "Naughty Boy",
-        "path": "./acssets/music/la-la-la.mp3",
-        "image": "./acssets/img/la-la-la.jpg"
+        "path": "./assets/music/la-la-la.mp3",
+        "image": "./assets/img/la-la-la.jpg"
     },
     {
         "name": "Love Is Gone",
         "singer": "Slander, Dylan Mathew",
-        "path": "./acssets/music/love-is-gone.mp3",
-        "image": "./acssets/img/love-is-gone.jpg"
+        "path": "./assets/music/love-is-gone.mp3",
+        "image": "./assets/img/love-is-gone.jpg"
     },
     {
         "name": "Past Lives",
         "singer": "Børns",
-        "path": "./acssets/music/past-lives.mp3",
-        "image": "./acssets/img/past-lives.jpg"
+        "path": "./assets/music/past-lives.mp3",
+        "image": "./assets/img/past-lives.jpg"
     },
     {
         "name": "Someone To You",
         "singer": "Banners",
-        "path": "./acssets/music/someone-to-you.mp3",
-        "image": "./acssets/img/someone-to-you.jpg"
+        "path": "./assets/music/someone-to-you.mp3",
+        "image": "./assets/img/someone-to-you.jpg"
     }
 ]
