@@ -31,11 +31,6 @@ const ctr_volume = document.querySelector('#set-volume');
 const ctr_volumeUp = document.querySelector('.icon-volume-up');
 const ctr_volumeDown = document.querySelector('.icon-volume-down');
 const ctr_volumeOff = document.querySelector('.icon-volume-off');
-const ctr_speed = document.querySelector('.speed-audio'); 
-const ctr_speedFast2 = document.querySelector('.speed-audio-fast-2'); // speed = 2.0
-const ctr_speedFast1 = document.querySelector('.speed-audio-fast-1'); // speed = 1.5
-const ctr_speedDefault = document.querySelector('.speed-audio-default'); // speed = 1.0
-const ctr_speedSlow = document.querySelector('.speed-audio-slow'); // speed = 0.5
 
 const RepeatModes = {
     None: 0,
@@ -271,6 +266,8 @@ const app = {
                 ctr_randomSongBtn.classList.toggle('active', app.isRandom);
             }, // Random song
 
+
+
             // Repeat one song
             ctr_noRepeatSongBtn.onclick = function () {
                 app.repeatMode = RepeatModes.RepeatOne;
@@ -348,56 +345,25 @@ const app = {
             }); // forEach song
 
         // Speed audio
-        ctr_speedDefault.onclick = function () {
-            ctr_speedDefault.classList.add('active');
-            ctr_speedFast2.classList.remove('active');
-            ctr_speedSlow.classList.remove('active');
-            ctr_speedFast1.classList.remove('active');
 
-            app.checkSpeed();
-        },
-            ctr_speedFast1.onclick = function () {
-                ctr_speedFast1.classList.add('active');
-                ctr_speedFast2.classList.remove('active');
-                ctr_speedDefault.classList.remove('active');
-                ctr_speedSlow.classList.remove('active');
+
+        document.querySelectorAll('.speed-audio').forEach(speed => {
+            speed.onclick = function () {
+                const currentActiveSpeed = document.querySelector('.active');
+
+                currentActiveSpeed.classList.remove('active');
+                speed.classList.add('active');
 
                 app.checkSpeed();
-            },
-            ctr_speedFast2.onclick = function () {
-                ctr_speedFast2.classList.add('active');
-                ctr_speedDefault.classList.remove('active');
-                ctr_speedSlow.classList.remove('active');
-                ctr_speedFast1.classList.remove('active');
-
-                app.checkSpeed();
-            },
-            ctr_speedSlow.onclick = function (e) {
-                ctr_speedSlow.classList.add('active');
-                ctr_speedFast2.classList.remove('active');
-                ctr_speedDefault.classList.remove('active');
-                ctr_speedFast1.classList.remove('active');
-
-                app.checkSpeed();
-            }
+            } // onclick speed
+        }); // for each speed level
         // Speed audio
     }, // Handle event 
 
     // Check speed
     checkSpeed: function () {
-        if (ctr_speedDefault.classList.contains("active")) {
-            audio.playbackRate = 1;
-        }
-        else if (ctr_speedFast1.classList.contains("active")) {
-            audio.playbackRate = 1.5;
-        }
-        else if (ctr_speedFast2.classList.contains("active")) {
-            audio.playbackRate = 2;
-        }
-        else if (ctr_speedSlow.classList.contains("active")) {
-            audio.playbackRate = 0.5;
-        }
-
+        const ctr_speed = document.querySelector('.speed-audio.active');
+        audio.playbackRate = Number(ctr_speed.getAttribute('speed'));
     }, // Check speed
 
     // Scroll to active song 
