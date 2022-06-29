@@ -24,13 +24,11 @@ const ctr_progressIndicator = document.querySelector('#sub-progress');
 const ctr_nextSongBtn = document.querySelector('.btn-next');
 const ctr_previousSongBtn = document.querySelector('.btn-prev');
 const ctr_randomSongBtn = document.querySelector('.btn-random');
-const ctr_repeatSongBtnPlaylist = document.querySelector('.btn-repeat-playlist');
-const ctr_noRepeatSongBtn = document.querySelector('.btn-no-repeat');
-const ctr_repeatSongBtnOne = document.querySelector('.btn-repeat-one');
 const ctr_volume = document.querySelector('#set-volume');
 const ctr_volumeUp = document.querySelector('.icon-volume-up');
 const ctr_volumeDown = document.querySelector('.icon-volume-down');
 const ctr_volumeOff = document.querySelector('.icon-volume-off');
+const ctr_repeatSongBtn = document.querySelector('.btn-repeat');
 
 const RepeatModes = {
     None: 0,
@@ -267,27 +265,35 @@ const app = {
             }, // Random song
 
 
+            // Click repeat btn
+            // None => List => One
+            ctr_repeatSongBtn.onclick = function () {
+                const indicatorIcon = ctr_repeatSongBtn.querySelector('i');
+                const indicatorNumber = ctr_repeatSongBtn.querySelector('span');
 
-            // Repeat one song
-            ctr_noRepeatSongBtn.onclick = function () {
-                app.repeatMode = RepeatModes.RepeatOne;
-                ctr_repeatSongBtnOne.classList.add('show-item-repeat');
-                ctr_noRepeatSongBtn.classList.add('hide-item');
-            }, // Repeat one song
+                switch (app.repeatMode) {
+                    case RepeatModes.RepeatOne:
+                        app.repeatMode = RepeatModes.None;
+                        indicatorIcon.classList.remove('active');
+                        indicatorNumber.classList.remove('show-icon-repeat');
 
-            // Repeat playlist
-            ctr_repeatSongBtnOne.onclick = function () {
-                app.repeatMode = RepeatModes.RepeatList;
-                ctr_repeatSongBtnOne.classList.remove('show-item-repeat');
-                ctr_repeatSongBtnPlaylist.classList.add('show-item-repeat');
-            }, // Repeat playlist  
+                        break;
 
-            // No repeat
-            ctr_repeatSongBtnPlaylist.onclick = function () {
-                app.repeatMode = RepeatModes.None;
-                ctr_repeatSongBtnPlaylist.classList.remove('show-item-repeat');
-                ctr_noRepeatSongBtn.classList.remove('hide-item');
-            }, // No repeat
+                    case RepeatModes.RepeatList:
+                        app.repeatMode = RepeatModes.RepeatOne;
+                        indicatorIcon.classList.add('active');
+                        indicatorNumber.classList.add('show-icon-repeat');
+
+                        break;
+
+                    default: // RepeatModes.None
+                        app.repeatMode = RepeatModes.RepeatList;
+                        indicatorIcon.classList.add('active');
+                        indicatorNumber.classList.remove('show-icon-repeat');
+
+                        break;
+                } // switch */
+            }, // onclick repeat btn
 
             // Next song at the end 
             audio.onended = function () {
@@ -354,8 +360,9 @@ const app = {
                 currentActiveSpeed.classList.remove('active');
                 speed.classList.add('active');
 
-                app.checkSpeed();
-            } // onclick speed
+                audio.playbackRate = Number(this.getAttribute('speed'));
+
+            }
         }); // for each speed level
         // Speed audio
     }, // Handle event 

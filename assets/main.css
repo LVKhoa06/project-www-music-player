@@ -130,16 +130,17 @@ header h2 {
   transition: .2s;
 }
 
-#one {
+.one {
   position: absolute;
   font-size: 10px;
   color: var(--primary-color);
   bottom: 11.2px;
   font-weight: 600;
   pointer-events: none;
+  display: none;
 }
 
-.control .btn:hover #one {
+.control .btn:hover .one {
   font-size: 12px;
   transition: .2s;
 }
@@ -342,6 +343,7 @@ speed-item span:hover {
   width: 13px;
   height: 30px;
 }
+
 .favorite-container:hover .get-heart {
   display: block;
 }
@@ -365,29 +367,20 @@ speed-item span:hover {
   color: cornflowerblue;
 }
 
+.btn-repeat {
+  position: relative;
+}
+
+.icon-repeat.active {
+  color: var(--primary-color);
+}
+
 .hide-item {
   display: none;
 }
 
-.btn-repeat-one {
-  position: relative;
-  display: none;
-}
-
-.btn-repeat-one i {
-  color: var(--primary-color);
-}
-
-.btn-repeat-playlist {
-  display: none;
-}
-
-.btn-repeat-playlist i {
-  color: var(--primary-color);
-}
-
 .speed-audio.active {
-  color: var(--primary-color) !important;
+  color: var(--primary-color);
 }
 
 .show-item-repeat {
@@ -395,5 +388,9 @@ speed-item span:hover {
 }
 
 .show-item {
+  display: flex !important;
+}
+
+.show-icon-repeat {
   display: flex !important;
 }
