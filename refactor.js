@@ -12,6 +12,7 @@
 10. Play song when click +
 */
 
+//#region Declarations -----------------------------------------------------------
 const audio = document.querySelector('#audio');
 const player = document.querySelector('.player');
 const playlist = document.querySelector('.playlist');
@@ -35,6 +36,7 @@ const RepeatModes = {
     RepeatOne: 1,
     RepeatList: 2
 }
+//#endregion Declarations --------------------------------------------------------
 
 // Hide all opening context menus
 document.onclick = function () {
@@ -391,6 +393,7 @@ const app = {
         }, 200);
     }, // Scroll to active song 
 
+    //#region Navigation --------------------------------------------------
     // Next song
     nextSong: function () {
         this.currentIndex++;
@@ -422,6 +425,7 @@ const app = {
 
         this.playSong();
     }, // Random song
+    //#endregion Navigation ----------------------------------------------
 
     // When start then run the function inside
     async start() {
