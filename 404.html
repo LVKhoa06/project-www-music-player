@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="./assets/main.css">
 </head>
 <style>
-
     #page404 {
         position: relative;
         height: 100%;
@@ -31,7 +30,7 @@
 
     h2 {
         text-transform: uppercase;
-        font-size: 30px;
+        font-size: 28px;
         color: rgba(254, 73, 122, .8);
         pointer-events: none;
 
@@ -69,9 +68,15 @@
         width: 100%;
         opacity: .5;
     }
+
+    @media (max-width: 600px) {
+        h1 {
+            font-size: 180px;
+        }
+    }
 </style>
 
-<body style="height: auto ; background-color: white;">
+<body>
     <img src="https://cdn.pixabay.com/photo/2017/06/14/16/56/background-2402703__340.jpg" alt="">
     <div id="page404">
         <h1>404</h1>
@@ -79,6 +84,6 @@
             <h2>Oops!</h2>
             <h3>Page not found</h3>
         </div>
-        <a href="./index.html">BACK HOME </a>
+        <a href="./index.html">BACK HOME</a>
     </div>
 </body>
