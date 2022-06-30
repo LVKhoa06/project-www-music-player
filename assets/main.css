@@ -137,6 +137,7 @@ header h2 {
   bottom: 11.2px;
   font-weight: 600;
   pointer-events: none;
+  cursor: none;
   display: none;
 }
 
