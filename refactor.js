@@ -32,10 +32,11 @@ const ctr_volumeOff = document.querySelector('.icon-volume-off');
 const ctr_repeatSongBtn = document.querySelector('.btn-repeat');
 
 const RepeatModes = {
-    None: 0,
-    RepeatOne: 1,
-    RepeatList: 2
+    None: 'No repeat',
+    RepeatOne: 'Repeat one song',
+    RepeatList: 'Repeat playlist'
 }
+
 //#endregion Declarations --------------------------------------------------------
 
 // Hide all opening context menus
@@ -50,7 +51,7 @@ const app = {
     isRandom: false,
     isPlaying: false,
     repeatMode: RepeatModes.None,
-    currentIndex: 0,
+    _currentIndex: 0, // will be accessed via getter & setter
     songs: [],
 
     async fetchSongs() {
@@ -66,13 +67,32 @@ const app = {
             })
     }, // fetchSongs
 
+    //#region getters, setters -------------------------------------------------------- START
+    // currentSong
+    get currentSong() {
+        return this.songs[this._currentIndex];
+    }, // get
+
+    // currentIndex
+    get currentIndex() {
+        return this._currentIndex;
+    }, // get
+    set currentIndex(value) {
+        this._currentIndex = value;
+        this.playSong();
+    },
+    //#endregion getters, setters ----------------------------------------------------- END
+
+    // defineProperties
+    // not implemented
     defineProperties: function () {
-        Object.defineProperty(this, 'currentSong', {
+        Object.defineProperty(this, 'foo', {
             get: function () {
-                return this.songs[this.currentIndex];
+                return 'foo'
             }
         });
-    }, //
+    }, // defineProperties
+
 
     // Initialize playlist 
     initialize: function () {
@@ -294,6 +314,8 @@ const app = {
                         indicatorNumber.classList.remove('show-icon-repeat');
 
                         break;
+
+
                 } // switch */
             }, // onclick repeat btn
 
@@ -321,7 +343,6 @@ const app = {
             playlist.querySelectorAll('.song').forEach(song => {
                 song.onclick = function (e) {
                     app.currentIndex = Number(song.dataset.index);
-                    app.playSong();
                 } // song.onclick
 
                 // Toggle favorite
@@ -397,21 +418,15 @@ const app = {
     // Next song
     nextSong: function () {
         this.currentIndex++;
-        if (this.currentIndex >= this.songs.length) {
+        if (this.currentIndex >= this.songs.length) 
             this.currentIndex = 0;
-        }
-
-        this.playSong();
     }, // Next song
 
     // Previous song
     previousSong: function () {
         this.currentIndex--;
-        if (this.currentIndex < 0) {
+        if (this.currentIndex < 0)
             this.currentIndex = this.songs.length - 1;
-        }
-
-        this.playSong();
     }, // Previous song
 
     // Random song
@@ -422,8 +437,6 @@ const app = {
         } while (newIndex === this.currentIndex);
 
         this.currentIndex = newIndex;
-
-        this.playSong();
     }, // Random song
     //#endregion Navigation ----------------------------------------------
 
