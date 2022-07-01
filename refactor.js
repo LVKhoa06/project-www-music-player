@@ -78,7 +78,11 @@ const app = {
         return this._currentIndex;
     }, // get
     set currentIndex(value) {
-        this._currentIndex = value;
+        this._currentIndex =
+            value < 0 ? this.songs.length - 1 :     // go to last song when clicking 'BACK' on the first song
+                value > this.songs.length - 1 ? 0 : // go to first song when clicking 'NEXT' on the last song
+                    value;
+
         this.playSong();
     },
     //#endregion getters, setters ----------------------------------------------------- END
@@ -92,7 +96,6 @@ const app = {
             }
         });
     }, // defineProperties
-
 
     // Initialize playlist 
     initialize: function () {
@@ -418,22 +421,18 @@ const app = {
     // Next song
     nextSong: function () {
         this.currentIndex++;
-        if (this.currentIndex >= this.songs.length) 
-            this.currentIndex = 0;
     }, // Next song
 
     // Previous song
     previousSong: function () {
         this.currentIndex--;
-        if (this.currentIndex < 0)
-            this.currentIndex = this.songs.length - 1;
     }, // Previous song
 
     // Random song
     playRandomSong: function () {
         let newIndex;
         do {
-            newIndex = Math.round(Math.random() * this.songs.length);
+            newIndex = Math.floor(Math.random() * this.songs.length - 1);
         } while (newIndex === this.currentIndex);
 
         this.currentIndex = newIndex;
